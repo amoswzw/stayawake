@@ -89,7 +89,7 @@ final class AppCoordinator: ObservableObject {
         timer?.invalidate()
         let interval = nextTimerInterval()
         let t = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
-            Task { @MainActor in self?.tick() }
+            Task { @MainActor [weak self] in self?.tick() }
         }
         t.tolerance = min(10, max(1, interval * 0.2))
         RunLoop.main.add(t, forMode: .common)
@@ -104,7 +104,7 @@ final class AppCoordinator: ObservableObject {
             object: config,
             queue: .main
         ) { [weak self] _ in
-            Task { @MainActor in self?.configDidChange() }
+            Task { @MainActor [weak self] in self?.configDidChange() }
         }
     }
 

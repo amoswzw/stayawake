@@ -156,6 +156,7 @@ To add another language:
 ├── Package.swift
 ├── build-app.sh
 ├── docs/_config.yml
+├── docs/_layouts
 ├── docs/index.md
 ├── docs/SCREENSHOTS.md
 ├── docs/assets

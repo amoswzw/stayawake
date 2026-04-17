@@ -3,36 +3,42 @@ layout: default
 title: Screenshots
 ---
 
-# Screenshots
+<section class="page">
+  <div class="page-title">
+    <p class="eyebrow"><span class="pulse"></span> product screenshots</p>
+    <h1>Small menu, clear decisions.</h1>
+    <p>The app keeps the main workflow in the menu: current state, reason, next check, recent logs, and quick access to settings.</p>
+    <div class="actions">
+      <a class="button secondary" href="./">Back to home</a>
+      <a class="button" href="{{ site.repository_url }}/releases/latest">Download latest DMG</a>
+    </div>
+  </div>
 
-[Back to stayawake](./)
+  <div class="gallery">
+    <figure class="shot-card">
+      <img src="screenshots/stayawake_screen_shot.jpg" alt="stayawake menu with current state and recent logs">
+      <figcaption>Menu bar <span>current state and latest logs</span></figcaption>
+    </figure>
 
-## Menu Bar
+    <figure class="shot-card">
+      <img src="screenshots/stayawake_screen_shot2.jpg" alt="stayawake general settings">
+      <figcaption>Settings <span>general controls</span></figcaption>
+    </figure>
 
-The menu opens directly to the current state, reason, next check timing, and the latest 5 meaningful logs.
+    <figure class="shot-card">
+      <img src="screenshots/stayawake_screen_shot3.jpg" alt="stayawake rules settings">
+      <figcaption>Rules <span>processes and app lists</span></figcaption>
+    </figure>
 
-![stayawake menu with current state and recent logs](screenshots/stayawake_screen_shot.jpg)
+    <figure class="shot-card">
+      <img src="screenshots/stayawake_screen_shot4.jpg" alt="stayawake advanced settings">
+      <figcaption>Advanced <span>resource thresholds</span></figcaption>
+    </figure>
 
-## Settings: General
-
-General settings include launch at login, language, idle threshold, sampling interval, and release cooldown.
-
-![stayawake general settings](screenshots/stayawake_screen_shot2.jpg)
-
-## Settings: Rules
-
-Rules settings include task processes, foreground work-app allowlist, and blocklist.
-
-![stayawake rules settings](screenshots/stayawake_screen_shot3.jpg)
-
-## Settings: Advanced
-
-Advanced settings include CPU, network, and disk thresholds.
-
-![stayawake advanced settings](screenshots/stayawake_screen_shot4.jpg)
-
-## Logs
-
-The logs window shows the latest events with color-coded status and a detail panel for the selected entry.
-
-![stayawake logs window](screenshots/stayawake_screen_shot5.jpg)
+    <figure class="shot-card">
+      <img src="screenshots/stayawake_screen_shot5.jpg" alt="stayawake logs window">
+      <figcaption>Logs <span>colored status details</span></figcaption>
+    </figure>
+  </div>
+  <div class="footer-space"></div>
+</section>

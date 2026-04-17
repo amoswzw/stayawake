@@ -31,6 +31,17 @@ See [Screenshots](docs/SCREENSHOTS.md) for the menu, settings tabs, and logs win
 - English and Simplified Chinese localization
 - No cloud service, account, telemetry, or content upload
 
+## Install
+
+The fastest way to install a signed, notarized build is through Homebrew:
+
+```sh
+brew tap wangzewang/tap
+brew install --cask stayawake
+```
+
+You can also download the latest DMG directly from the [GitHub Releases](https://github.com/amoswzw/stayawake/releases/latest) page and drag `stayawake.app` into `/Applications`.
+
 ## Requirements
 
 - macOS 13 or later
@@ -190,14 +201,7 @@ Release requirements:
 - Unsigned DMG release requires no Apple credentials, but users may see Gatekeeper warnings.
 - Public distribution should use a Developer ID certificate and Apple notarization credentials.
 
-GitHub Actions can build and publish a DMG automatically:
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-The release workflow runs tests, builds `stayawake.app`, packages `stayawake-0.1.0-macos.dmg`, writes a SHA-256 checksum, and uploads both files to the GitHub Release. You can also run **Release macOS DMG** manually from the GitHub Actions tab with `v0.1.0`.
+GitHub Actions builds and publishes a DMG only when the **Release macOS DMG** workflow is triggered manually from the Actions tab. Enter the release tag (for example `v0.1.0`) and run the workflow. The workflow runs tests, builds `stayawake.app`, packages `stayawake-0.1.0-macos.dmg`, writes a SHA-256 checksum, and uploads both files to the GitHub Release.
 
 ### Signing and notarization
 

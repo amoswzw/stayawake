@@ -9,7 +9,8 @@ title: stayawake
     <h1>Awake when work is alive.</h1>
     <p class="lede">stayawake watches lightweight system signals, keeps long-running work safe, and steps aside when your Mac can sleep.</p>
     <div class="actions">
-      <a class="button" href="{{ site.repository_url }}/releases/latest">Download latest DMG</a>
+      <a class="button" href="#install">Install with Homebrew</a>
+      <a class="button secondary" href="{{ site.repository_url }}/releases/latest">Download latest DMG</a>
       <a class="button secondary" href="{{ site.repository_url }}">View source</a>
     </div>
     <ul class="quick-facts" aria-label="Project highlights">
@@ -56,6 +57,31 @@ title: stayawake
           <span class="row-note">Sleep allowed when signals are quiet</span>
         </span>
         <span class="tag sleep">Sleep</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="install">
+  <div class="section-header">
+    <h2>Install in one command.</h2>
+    <p>Signed with a Developer ID and notarized by Apple, so Gatekeeper opens it without extra prompts.</p>
+  </div>
+  <div class="install-options">
+    <div>
+      <h3>Homebrew</h3>
+
+```sh
+brew tap wangzewang/tap
+brew install --cask stayawake
+```
+
+    </div>
+    <div>
+      <h3>Direct download</h3>
+      <p>Grab the latest signed DMG from GitHub Releases and drag <code>stayawake.app</code> into <code>/Applications</code>.</p>
+      <div class="actions">
+        <a class="button secondary" href="{{ site.repository_url }}/releases/latest">Open Releases</a>
       </div>
     </div>
   </div>

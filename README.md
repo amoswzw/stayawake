@@ -12,13 +12,7 @@ It is designed for long-running work: builds, downloads, renders, scripts, audio
 
 The app uses a small character icon in the menu bar. The sleeping character means sleep is allowed; the energized character means stayawake is actively keeping the Mac awake.
 
-<p>
-  <img src="Sources/stayawake/Resources/status-sleep-template.png" width="44" alt="Sleep allowed icon">
-  <strong>Sleep allowed</strong>
-  &nbsp;&nbsp;&nbsp;
-  <img src="Sources/stayawake/Resources/status-awake-template.png" width="44" alt="Keeping awake icon">
-  <strong>Keeping awake</strong>
-</p>
+![Awake and Sleep menu-bar status icons](docs/assets/status-preview.png)
 
 ## Screenshots
 
@@ -147,6 +141,7 @@ To add another language:
 .
 ├── Package.swift
 ├── build-app.sh
+├── docs/assets
 ├── docs/screenshots
 ├── Sources/stayawake
 │   ├── App.swift

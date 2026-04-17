@@ -20,20 +20,6 @@ Screenshots are kept out of the main README so the project page stays compact.
 
 See [Screenshots](docs/SCREENSHOTS.md) for the menu, settings tabs, and logs window.
 
-## GitHub Pages
-
-The project site lives in `docs/` and can be published with GitHub Pages.
-
-To enable it after pushing the repository:
-
-1. Open the repository on GitHub.
-2. Go to **Settings** -> **Pages**.
-3. Set **Source** to **Deploy from a branch**.
-4. Select the default branch and the `/docs` folder.
-5. Save the setting.
-
-The landing page is `docs/index.md`; screenshots are linked from `docs/SCREENSHOTS.md`.
-
 ## Features
 
 - Automatic sleep control with no manual toggle required for normal use
@@ -193,6 +179,16 @@ The test suite covers policy decisions, signal derivation, log deduplication, bl
 ## Release Notes
 
 This repository builds a local, unsigned `.app` bundle. If you plan to distribute binaries, sign and notarize the app with your Apple Developer account.
+
+Release requirements:
+
+- GitHub Actions must be enabled for the repository.
+- The release tag must use semantic version format, for example `v0.1.0`.
+- `CFBundleShortVersionString` in `build-app.sh` must match the release tag without the leading `v`.
+- `swift test` must pass on the GitHub macOS runner.
+- `./build-app.sh` must produce `build/stayawake.app`.
+- Unsigned DMG release requires no Apple credentials, but users may see Gatekeeper warnings.
+- Public distribution should use a Developer ID certificate and Apple notarization credentials.
 
 GitHub Actions can build and publish a DMG automatically:
 

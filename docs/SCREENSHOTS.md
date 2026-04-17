@@ -1,4 +1,11 @@
+---
+layout: default
+title: Screenshots
+---
+
 # Screenshots
+
+[Back to stayawake](./)
 
 ## Menu Bar
 

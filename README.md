@@ -20,6 +20,20 @@ Screenshots are kept out of the main README so the project page stays compact.
 
 See [Screenshots](docs/SCREENSHOTS.md) for the menu, settings tabs, and logs window.
 
+## GitHub Pages
+
+The project site lives in `docs/` and can be published with GitHub Pages.
+
+To enable it after pushing the repository:
+
+1. Open the repository on GitHub.
+2. Go to **Settings** -> **Pages**.
+3. Set **Source** to **Deploy from a branch**.
+4. Select the default branch and the `/docs` folder.
+5. Save the setting.
+
+The landing page is `docs/index.md`; screenshots are linked from `docs/SCREENSHOTS.md`.
+
 ## Features
 
 - Automatic sleep control with no manual toggle required for normal use
@@ -141,6 +155,9 @@ To add another language:
 .
 ├── Package.swift
 ├── build-app.sh
+├── docs/_config.yml
+├── docs/index.md
+├── docs/SCREENSHOTS.md
 ├── docs/assets
 ├── docs/screenshots
 ├── Sources/stayawake
@@ -175,6 +192,39 @@ The test suite covers policy decisions, signal derivation, log deduplication, bl
 ## Release Notes
 
 This repository builds a local, unsigned `.app` bundle. If you plan to distribute binaries, sign and notarize the app with your Apple Developer account.
+
+GitHub Actions can build and publish a DMG automatically:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The release workflow runs tests, builds `stayawake.app`, packages `stayawake-0.1.0-macos.dmg`, writes a SHA-256 checksum, and uploads both files to the GitHub Release. You can also run **Release macOS DMG** manually from the GitHub Actions tab with `v0.1.0`.
+
+### Signing and notarization
+
+For public distribution outside the Mac App Store, configure these GitHub Actions repository secrets before creating the release tag:
+
+| Secret | Value |
+| --- | --- |
+| `APPLE_CERTIFICATE_P12_BASE64` | Base64-encoded `Developer ID Application` `.p12` certificate |
+| `APPLE_CERTIFICATE_PASSWORD` | Password used when exporting the `.p12` certificate |
+| `APPLE_ID` | Apple ID email used for notarization |
+| `APPLE_APP_SPECIFIC_PASSWORD` | App-specific password for that Apple ID |
+| `APPLE_TEAM_ID` | Apple Developer Team ID |
+
+On your Mac, export the certificate from Keychain Access, then encode it:
+
+```bash
+base64 -i DeveloperIDApplication.p12 | pbcopy
+```
+
+Paste the copied value into `APPLE_CERTIFICATE_P12_BASE64`.
+
+When these secrets are present, the workflow signs the app, signs the DMG, submits the DMG to Apple notarization, staples the notarization ticket, and then uploads the final DMG. Without these secrets, the workflow still builds an unsigned DMG.
+
+This workflow uses Developer ID distribution. Mac App Store distribution is a separate path and requires App Sandbox, App Store signing, provisioning, and App Store Connect submission.
 
 Before publishing your own fork, review:
 

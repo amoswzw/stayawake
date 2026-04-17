@@ -1,0 +1,254 @@
+name: Release macOS DMG
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release tag, for example v0.1.0"
+        required: true
+        default: "v0.1.0"
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    name: Build and publish DMG
+    runs-on: macos-14
+
+    env:
+      APP_NAME: stayawake
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Resolve release version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION_TAG="${{ inputs.version }}"
+          else
+            VERSION_TAG="${GITHUB_REF_NAME}"
+          fi
+
+          if [[ ! "$VERSION_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Version tag must look like v0.1.0, got: $VERSION_TAG" >&2
+            exit 1
+          fi
+
+          APP_VERSION="${VERSION_TAG#v}"
+          echo "tag=$VERSION_TAG" >> "$GITHUB_OUTPUT"
+          echo "app_version=$APP_VERSION" >> "$GITHUB_OUTPUT"
+          echo "dmg_name=${APP_NAME}-${APP_VERSION}-macos.dmg" >> "$GITHUB_OUTPUT"
+
+      - name: Verify app version
+        shell: bash
+        run: |
+          set -euo pipefail
+          APP_VERSION="${{ steps.version.outputs.app_version }}"
+          SCRIPT_VERSION="$(awk '
+            /<key>CFBundleShortVersionString<\\/key>/ { getline; gsub(/.*<string>|<\\/string>.*/, ""); print; exit }
+          ' build-app.sh)"
+
+          if [ "$SCRIPT_VERSION" != "$APP_VERSION" ]; then
+            echo "build-app.sh version is $SCRIPT_VERSION, but release tag is v$APP_VERSION" >&2
+            exit 1
+          fi
+
+      - name: Show toolchain
+        run: |
+          swift --version
+          xcodebuild -version
+
+      - name: Import Developer ID certificate
+        if: ${{ secrets.APPLE_CERTIFICATE_P12_BASE64 != '' && secrets.APPLE_CERTIFICATE_PASSWORD != '' }}
+        env:
+          APPLE_CERTIFICATE_P12_BASE64: ${{ secrets.APPLE_CERTIFICATE_P12_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          CERTIFICATE_PATH="$RUNNER_TEMP/developer-id.p12"
+          KEYCHAIN_PATH="$RUNNER_TEMP/app-signing.keychain-db"
+
+          echo "$APPLE_CERTIFICATE_P12_BASE64" | base64 --decode > "$CERTIFICATE_PATH"
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$CERTIFICATE_PATH" \
+            -P "$APPLE_CERTIFICATE_PASSWORD" \
+            -A \
+            -t cert \
+            -f pkcs12 \
+            -k "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH"
+          security set-key-partition-list \
+            -S apple-tool:,apple: \
+            -s \
+            -k "$KEYCHAIN_PASSWORD" \
+            "$KEYCHAIN_PATH"
+
+          CODESIGN_IDENTITY="$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | sed -n 's/.*"\(Developer ID Application:.*\)"/\1/p' | head -n 1)"
+          if [ -z "$CODESIGN_IDENTITY" ]; then
+            echo "No Developer ID Application identity found in the imported certificate." >&2
+            security find-identity -v -p codesigning "$KEYCHAIN_PATH" >&2
+            exit 1
+          fi
+
+          echo "CODESIGN_IDENTITY=$CODESIGN_IDENTITY" >> "$GITHUB_ENV"
+          echo "IS_SIGNED=true" >> "$GITHUB_ENV"
+
+      - name: Run tests
+        run: swift test
+
+      - name: Build app bundle
+        run: ./build-app.sh
+
+      - name: Sign app bundle
+        if: ${{ env.CODESIGN_IDENTITY != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          codesign \
+            --force \
+            --deep \
+            --options runtime \
+            --timestamp \
+            --sign "$CODESIGN_IDENTITY" \
+            "build/${APP_NAME}.app"
+
+          codesign --verify --deep --strict --verbose=2 "build/${APP_NAME}.app"
+
+      - name: Create DMG
+        id: dmg
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          APP_VERSION="${{ steps.version.outputs.app_version }}"
+          DMG_NAME="${{ steps.version.outputs.dmg_name }}"
+          DMG_PATH="$PWD/build/$DMG_NAME"
+          DMG_ROOT="$PWD/build/dmg-root"
+
+          rm -rf "$DMG_ROOT" "$DMG_PATH"
+          mkdir -p "$DMG_ROOT"
+          cp -R "build/${APP_NAME}.app" "$DMG_ROOT/${APP_NAME}.app"
+          ln -s /Applications "$DMG_ROOT/Applications"
+
+          hdiutil create \
+            -volname "${APP_NAME} ${APP_VERSION}" \
+            -srcfolder "$DMG_ROOT" \
+            -ov \
+            -format UDZO \
+            "$DMG_PATH"
+
+          echo "path=$DMG_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Sign DMG
+        if: ${{ env.CODESIGN_IDENTITY != '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          codesign \
+            --force \
+            --timestamp \
+            --sign "$CODESIGN_IDENTITY" \
+            "${{ steps.dmg.outputs.path }}"
+
+          codesign --verify --verbose=2 "${{ steps.dmg.outputs.path }}"
+
+      - name: Notarize and staple DMG
+        if: ${{ env.CODESIGN_IDENTITY != '' && secrets.APPLE_ID != '' && secrets.APPLE_APP_SPECIFIC_PASSWORD != '' && secrets.APPLE_TEAM_ID != '' }}
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          xcrun notarytool submit "${{ steps.dmg.outputs.path }}" \
+            --apple-id "$APPLE_ID" \
+            --password "$APPLE_APP_SPECIFIC_PASSWORD" \
+            --team-id "$APPLE_TEAM_ID" \
+            --wait
+
+          xcrun stapler staple "${{ steps.dmg.outputs.path }}"
+          xcrun stapler validate "${{ steps.dmg.outputs.path }}"
+          spctl --assess --type open --context context:primary-signature --verbose "${{ steps.dmg.outputs.path }}"
+
+          echo "IS_NOTARIZED=true" >> "$GITHUB_ENV"
+
+      - name: Write SHA-256 checksum
+        id: checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SHA256_PATH="${{ steps.dmg.outputs.path }}.sha256"
+          shasum -a 256 "${{ steps.dmg.outputs.path }}" > "$SHA256_PATH"
+          echo "sha256_path=$SHA256_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.version.outputs.dmg_name }}
+          path: |
+            ${{ steps.dmg.outputs.path }}
+            ${{ steps.checksum.outputs.sha256_path }}
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION_TAG: ${{ steps.version.outputs.tag }}
+          APP_VERSION: ${{ steps.version.outputs.app_version }}
+          DMG_PATH: ${{ steps.dmg.outputs.path }}
+          SHA256_PATH: ${{ steps.checksum.outputs.sha256_path }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SIGNING_NOTE="Unsigned DMG. macOS Gatekeeper may warn until you sign and notarize a release."
+          if [ "${IS_NOTARIZED:-false}" = "true" ]; then
+            SIGNING_NOTE="Signed with Developer ID and notarized by Apple."
+          elif [ "${IS_SIGNED:-false}" = "true" ]; then
+            SIGNING_NOTE="Signed with Developer ID, but notarization secrets were not configured."
+          fi
+
+          RELEASE_NOTES="$(mktemp)"
+          cat > "$RELEASE_NOTES" <<EOF
+          stayawake ${APP_VERSION}
+
+          macOS menu-bar app packaged as a DMG.
+
+          ${SIGNING_NOTE}
+
+          Install:
+          1. Download the DMG.
+          2. Open it.
+          3. Drag stayawake.app into Applications.
+
+          SHA-256 checksum is attached as a separate .sha256 file.
+          EOF
+
+          if gh release view "$VERSION_TAG" >/dev/null 2>&1; then
+            gh release upload "$VERSION_TAG" "$DMG_PATH" "$SHA256_PATH" --clobber
+          else
+            gh release create "$VERSION_TAG" \
+              "$DMG_PATH" \
+              "$SHA256_PATH" \
+              --title "$VERSION_TAG" \
+              --notes-file "$RELEASE_NOTES"
+          fi

@@ -576,6 +576,59 @@ h1 {
   height: 36px;
 }
 
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 24px max(24px, calc((100vw - 1120px) / 2)) 36px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.site-footer a {
+  text-decoration: none;
+}
+
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.agent-note {
+  padding: 20px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.agent-note h2 {
+  margin-bottom: 12px;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.agent-note p,
+.agent-note li {
+  color: var(--muted);
+}
+
+.agent-note pre {
+  margin: 12px 0 0;
+  padding: 14px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #111413;
+  color: #f7faf8;
+}
+
+.agent-note code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #111413;
@@ -600,6 +653,7 @@ h1 {
   }
 
   .signal,
+  .agent-note,
   .state-line,
   .privacy-list li,
   .shot-link,
@@ -654,6 +708,7 @@ h1 {
   }
 
   .signal-rail,
+  .agent-grid,
   .screenshot-grid,
   .gallery {
     grid-template-columns: 1fr;

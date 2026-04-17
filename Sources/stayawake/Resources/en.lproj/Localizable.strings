@@ -100,6 +100,12 @@
 "settings.language.system" = "System";
 "settings.language.english" = "English";
 "settings.language.simplified_chinese" = "Simplified Chinese";
+"settings.language.traditional_chinese" = "Traditional Chinese";
+"settings.language.japanese" = "Japanese";
+"settings.language.korean" = "Korean";
+"settings.language.french" = "French";
+"settings.language.german" = "German";
+"settings.language.spanish" = "Spanish";
 "settings.launch_at_login" = "Launch at login";
 "settings.sample_interval_sec" = "Sample interval (seconds)";
 "settings.cooldown_sec" = "Release cooldown (seconds)";

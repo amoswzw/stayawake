@@ -1,0 +1,151 @@
+// Status line
+"status.awake" = "Maintien en éveil";
+"status.manual_awake" = "Maintien manuel en éveil";
+"status.sleepable" = "Veille autorisée";
+"status.reason_format" = "Raison : %@";
+"status.keep_time_format" = "Durée de maintien : %@";
+"status.next_check_format" = "Prochaine vérification : %@";
+"status.summary_awake" = "Travail en cours détecté.";
+"status.summary_sleepable" = "Aucun signal ne justifie actuellement de maintenir le Mac en éveil.";
+
+// Mode line
+"mode.auto" = "Mode : automatique";
+"mode.manual_until_off" = "Mode : manuel (jusqu'à désactivation)";
+"mode.manual_until_format" = "Mode : manuel jusqu'à %@";
+
+// Menu items
+"menu.keep_30" = "Maintenir en éveil 30 minutes";
+"menu.keep_1h" = "Maintenir en éveil 1 heure";
+"menu.keep_until_off" = "Maintenir en éveil jusqu'à désactivation";
+"menu.resume_auto" = "Reprendre le mode automatique";
+"menu.settings" = "Réglages…";
+"menu.logs" = "Journal…";
+"menu.logs_recent" = "Journal récent";
+"menu.logs_empty" = "Aucun journal récent";
+"menu.quit" = "Quitter stayawake";
+
+// Window titles
+"window.settings" = "Réglages stayawake";
+"window.logs" = "Journal stayawake";
+
+// Policy reasons
+"reason.manual_until_off" = "Maintien manuel (jusqu'à désactivation)";
+"reason.manual_timed_format" = "Maintien manuel (~%lld min restantes)";
+"reason.thermal_battery" = "Sur batterie et état thermique critique ; veille autorisée pour protéger l'appareil";
+"reason.uncertain_signals" = "Échec de la détection des signaux ; maintien en éveil pour ne pas interrompre le travail";
+"reason.active_process" = "Processus de type tâche détecté";
+"reason.active_process_recent_input" = "Processus de tâche avec saisie récente";
+"reason.resource_busy" = "Activité soutenue des ressources (CPU/réseau/disque)";
+"reason.fullscreen" = "Application plein écran active";
+"reason.fullscreen_recent_input" = "Plein écran avec saisie récente";
+"reason.audio" = "Lecture audio en cours";
+"reason.foreground_work" = "Application de travail au premier plan";
+"reason.foreground_work_recent_input" = "Application de travail au premier plan avec saisie récente";
+"reason.user_idle" = "Utilisateur inactif, aucune activité";
+"reason.no_keep_evidence" = "Aucune raison active de maintenir en éveil";
+
+// Event log messages
+"event.app_started" = "stayawake démarré";
+"event.app_stopping" = "stayawake en arrêt";
+"event.manual_until_off" = "Maintien manuel (jusqu'à désactivation)";
+"event.manual_until_format" = "Maintien manuel jusqu'à %@";
+"event.resume_auto" = "Reprise du mode automatique";
+"event.manual_expired" = "Fenêtre manuelle expirée ; mode automatique repris";
+"event.assertion_failed_format" = "Échec de la création de l'assertion d'alimentation pour : %@";
+
+// Log details
+"log.detail.manual" = "Contournement manuel sélectionné dans le menu.";
+"log.detail.active_process_format" = "Processus de tâche détecté : %@";
+"log.detail.active_process_unknown" = "Un processus de tâche configuré correspond.";
+"log.detail.recent_input_format" = "saisie il y a %d s";
+"log.detail.resource" = "L'activité CPU, réseau ou disque a dépassé le seuil.";
+"log.detail.cpu_format" = "CPU %d%% (seuil %d%%)";
+"log.detail.network_format" = "Réseau %@ (seuil %@)";
+"log.detail.disk_format" = "Disque %@ (seuil %@)";
+"log.detail.fullscreen_format" = "Propriétaire du plein écran : %@";
+"log.detail.fullscreen_unknown" = "Une fenêtre plein écran est active.";
+"log.detail.audio" = "La sortie audio du système est active.";
+"log.detail.foreground_name_format" = "App au premier plan : %@ (%@)";
+"log.detail.foreground_format" = "Bundle au premier plan : %@";
+"log.detail.foreground_unknown" = "Une application de travail configurée est au premier plan.";
+"log.detail.uncertain_format" = "Sondes en échec : %@";
+"log.detail.automatic" = "La politique automatique a décidé de conserver l'assertion.";
+
+// Durations
+"duration.until_format" = "Jusqu'à %@ (%@ restant)";
+"duration.until_off" = "Jusqu'à désactivation";
+"duration.automatic_format" = "Nouvelle vérification dans %d s";
+"duration.cooldown_format" = "Nouvelle vérification dans %d s";
+"duration.remaining_hours_format" = "%d h %d min";
+"duration.remaining_minutes_format" = "%d min";
+"duration.expired" = "expiré";
+
+// Settings tabs
+"settings.title" = "stayawake";
+"settings.subtitle" = "Contrôle automatique de la veille pour les travaux de longue durée.";
+"settings.tab.general" = "Général";
+"settings.tab.rules" = "Règles";
+"settings.tab.advanced" = "Avancé";
+
+// Settings sections
+"settings.section.idle" = "Détection d'inactivité";
+"settings.section.language" = "Langue";
+"settings.section.launch" = "Lancement";
+"settings.section.sampling" = "Échantillonnage";
+"settings.section.thresholds" = "Seuils";
+
+// Settings fields
+"settings.idle_threshold_min" = "Seuil d'inactivité (minutes)";
+"settings.language" = "Langue";
+"settings.language.system" = "Système";
+"settings.language.english" = "English";
+"settings.language.simplified_chinese" = "Chinois simplifié";
+"settings.language.traditional_chinese" = "Chinois traditionnel";
+"settings.language.japanese" = "Japonais";
+"settings.language.korean" = "Coréen";
+"settings.language.french" = "Français";
+"settings.language.german" = "Allemand";
+"settings.language.spanish" = "Espagnol";
+"settings.launch_at_login" = "Lancer à l'ouverture de session";
+"settings.sample_interval_sec" = "Intervalle d'échantillonnage (secondes)";
+"settings.cooldown_sec" = "Délai de libération (secondes)";
+"settings.cpu_threshold" = "CPU (au moins un cœur ≥)";
+"settings.network_threshold" = "Débit réseau ≥";
+"settings.disk_threshold" = "Débit disque ≥";
+"settings.threshold_footnote" = "Les seuils utilisent une fenêtre P75 de 60 s normalisée par cœur, de sorte qu'un cœur saturé n'est pas dilué par la moyenne de la machine.";
+
+// Rules
+"settings.rules.task_processes.title" = "Processus de tâche (les noms correspondants comptent comme une tâche en cours)";
+"settings.rules.task_processes.placeholder" = "ex. ffmpeg";
+"settings.rules.work_apps.title" = "Liste autorisée d'applications de travail (premier plan = travail)";
+"settings.rules.work_apps.placeholder" = "bundle id, ex. com.apple.dt.Xcode";
+"settings.rules.blacklist.title" = "Liste d'exclusion (ignore les signaux d'app de travail et plein écran correspondants)";
+"settings.rules.blacklist.placeholder" = "bundle id";
+"settings.rules.count_format" = "%d éléments";
+
+"settings.add" = "Ajouter";
+"settings.empty" = "(aucun)";
+"settings.remove_format" = "Supprimer %@";
+
+// Logs
+"logs.title" = "Événements récents";
+"logs.subtitle" = "Affiche les points discrets de maintien, libération et revérification de cette session.";
+"logs.refresh" = "Actualiser";
+"logs.recent_count_format" = "%d récents";
+"logs.empty" = "Aucun événement";
+"logs.empty_detail" = "Cette vue montre des actions de contrôle discrètes, pas l'échantillonnage continu en arrière-plan.";
+"logs.detail.placeholder" = "Sélectionnez une entrée pour voir les détails.";
+"logs.detail.note" = "Détail";
+"logs.detail.none" = "Aucun";
+"logs.column.time" = "Heure";
+"logs.column.action" = "Action";
+"logs.column.reason" = "Raison";
+"logs.column.duration" = "Durée de maintien";
+"logs.action.start" = "Démarrage";
+"logs.action.stop" = "Arrêt";
+"logs.action.manual" = "Manuel";
+"logs.action.auto" = "Auto";
+"logs.action.keep_awake" = "Maintien en éveil";
+"logs.action.allow_sleep_released" = "Libération de l'assertion";
+"logs.action.allow_sleep_system" = "Laisser le système gérer la veille";
+"logs.action.error" = "Erreur";

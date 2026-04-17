@@ -1,0 +1,151 @@
+// Status line
+"status.awake" = "保持喚醒中";
+"status.manual_awake" = "手動保持中";
+"status.sleepable" = "可睡眠";
+"status.reason_format" = "原因：%@";
+"status.keep_time_format" = "保持時間：%@";
+"status.next_check_format" = "下次檢查：%@";
+"status.summary_awake" = "偵測到任務仍在執行。";
+"status.summary_sleepable" = "目前沒有需要繼續保持喚醒的跡象。";
+
+// Mode line
+"mode.auto" = "模式：自動";
+"mode.manual_until_off" = "模式：手動保持（直到關閉）";
+"mode.manual_until_format" = "模式：手動保持至 %@";
+
+// Menu items
+"menu.keep_30" = "保持喚醒 30 分鐘";
+"menu.keep_1h" = "保持喚醒 1 小時";
+"menu.keep_until_off" = "保持喚醒 直到關閉";
+"menu.resume_auto" = "恢復自動模式";
+"menu.settings" = "設定…";
+"menu.logs" = "日誌…";
+"menu.logs_recent" = "最近日誌";
+"menu.logs_empty" = "暫無最近日誌";
+"menu.quit" = "結束 stayawake";
+
+// Window titles
+"window.settings" = "stayawake 設定";
+"window.logs" = "stayawake 日誌";
+
+// Policy reasons
+"reason.manual_until_off" = "手動保持（直到關閉）";
+"reason.manual_timed_format" = "手動保持（剩餘約 %lld 分鐘）";
+"reason.thermal_battery" = "電池供電且熱狀態嚴重，允許睡眠以保護裝置";
+"reason.uncertain_signals" = "訊號偵測失敗，保持喚醒以避免中斷任務";
+"reason.active_process" = "偵測到任務型程式執行";
+"reason.active_process_recent_input" = "任務程式與最近輸入同時存在";
+"reason.resource_busy" = "資源持續活躍（CPU/網路/磁碟）";
+"reason.fullscreen" = "全螢幕應用程式執行中";
+"reason.fullscreen_recent_input" = "全螢幕與最近輸入同時存在";
+"reason.audio" = "音訊播放中";
+"reason.foreground_work" = "前景工作應用程式活躍";
+"reason.foreground_work_recent_input" = "前景工作應用程式與最近輸入同時存在";
+"reason.user_idle" = "使用者閒置且無活動";
+"reason.no_keep_evidence" = "沒有有效的保持喚醒證據";
+
+// Event log messages
+"event.app_started" = "stayawake 啟動";
+"event.app_stopping" = "stayawake 結束";
+"event.manual_until_off" = "手動保持（直到關閉）";
+"event.manual_until_format" = "手動保持到 %@";
+"event.resume_auto" = "恢復自動模式";
+"event.manual_expired" = "手動保持時間到，恢復自動";
+"event.assertion_failed_format" = "建立電源斷言失敗：%@";
+
+// Log details
+"log.detail.manual" = "從選單選擇了手動覆寫。";
+"log.detail.active_process_format" = "匹配到任務程式：%@";
+"log.detail.active_process_unknown" = "匹配到已設定的任務程式。";
+"log.detail.recent_input_format" = "%d 秒前有輸入";
+"log.detail.resource" = "CPU、網路或磁碟活動超過閾值。";
+"log.detail.cpu_format" = "CPU %d%%（閾值 %d%%）";
+"log.detail.network_format" = "網路 %@（閾值 %@）";
+"log.detail.disk_format" = "磁碟 %@（閾值 %@）";
+"log.detail.fullscreen_format" = "全螢幕視窗歸屬：%@";
+"log.detail.fullscreen_unknown" = "偵測到全螢幕視窗。";
+"log.detail.audio" = "系統音訊輸出正在活動。";
+"log.detail.foreground_name_format" = "前景應用程式：%@（%@）";
+"log.detail.foreground_format" = "前景 bundle：%@";
+"log.detail.foreground_unknown" = "已設定的工作應用程式位於前景。";
+"log.detail.uncertain_format" = "偵測失敗：%@";
+"log.detail.automatic" = "自動策略決定繼續保持電源斷言。";
+
+// Durations
+"duration.until_format" = "直到 %@（剩餘 %@）";
+"duration.until_off" = "直到手動關閉";
+"duration.automatic_format" = "保持 %d 秒後重新檢查";
+"duration.cooldown_format" = "%d 秒後重新檢查";
+"duration.remaining_hours_format" = "%d 小時 %d 分鐘";
+"duration.remaining_minutes_format" = "%d 分鐘";
+"duration.expired" = "已過期";
+
+// Settings tabs
+"settings.title" = "stayawake";
+"settings.subtitle" = "為長時間任務自動管理睡眠。";
+"settings.tab.general" = "一般";
+"settings.tab.rules" = "規則";
+"settings.tab.advanced" = "進階";
+
+// Settings sections
+"settings.section.idle" = "閒置判定";
+"settings.section.language" = "語言";
+"settings.section.launch" = "啟動";
+"settings.section.sampling" = "取樣";
+"settings.section.thresholds" = "閾值";
+
+// Settings fields
+"settings.idle_threshold_min" = "閒置閾值（分鐘）";
+"settings.language" = "語言";
+"settings.language.system" = "跟隨系統";
+"settings.language.english" = "English";
+"settings.language.simplified_chinese" = "簡體中文";
+"settings.language.traditional_chinese" = "繁體中文";
+"settings.language.japanese" = "日語";
+"settings.language.korean" = "韓語";
+"settings.language.french" = "法語";
+"settings.language.german" = "德語";
+"settings.language.spanish" = "西班牙語";
+"settings.launch_at_login" = "登入時啟動";
+"settings.sample_interval_sec" = "取樣間隔（秒）";
+"settings.cooldown_sec" = "釋放冷卻（秒）";
+"settings.cpu_threshold" = "CPU（任一核心 ≥）";
+"settings.network_threshold" = "網路速率 ≥";
+"settings.disk_threshold" = "磁碟速率 ≥";
+"settings.threshold_footnote" = "閾值使用過去 60 秒的 P75，依每核正規化，避免單核滿載被整機平均稀釋。";
+
+// Rules
+"settings.rules.task_processes.title" = "任務程式（匹配名稱則視為有任務在執行）";
+"settings.rules.task_processes.placeholder" = "例如 ffmpeg";
+"settings.rules.work_apps.title" = "工作應用程式白名單（前景時視為工作中）";
+"settings.rules.work_apps.placeholder" = "bundle id，例如 com.apple.dt.Xcode";
+"settings.rules.blacklist.title" = "黑名單（忽略前景工作與匹配歸屬的全螢幕訊號）";
+"settings.rules.blacklist.placeholder" = "bundle id";
+"settings.rules.count_format" = "%d 項";
+
+"settings.add" = "新增";
+"settings.empty" = "（無）";
+"settings.remove_format" = "移除 %@";
+
+// Logs
+"logs.title" = "最近事件";
+"logs.subtitle" = "僅記錄動作發生時的喚醒、釋放與重新檢查節點。";
+"logs.refresh" = "重新整理";
+"logs.recent_count_format" = "最近 %d 條";
+"logs.empty" = "暫無事件";
+"logs.empty_detail" = "這裡顯示離散的控制動作，而非背景連續取樣紀錄。";
+"logs.detail.placeholder" = "選擇一條日誌以檢視詳情。";
+"logs.detail.note" = "詳情";
+"logs.detail.none" = "無";
+"logs.column.time" = "時間";
+"logs.column.action" = "動作";
+"logs.column.reason" = "原因";
+"logs.column.duration" = "保持時間";
+"logs.action.start" = "啟動";
+"logs.action.stop" = "結束";
+"logs.action.manual" = "手動";
+"logs.action.auto" = "自動";
+"logs.action.keep_awake" = "保持喚醒";
+"logs.action.allow_sleep_released" = "釋放斷言";
+"logs.action.allow_sleep_system" = "交由系統睡眠";
+"logs.action.error" = "錯誤";

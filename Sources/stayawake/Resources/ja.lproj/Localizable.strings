@@ -1,0 +1,151 @@
+// Status line
+"status.awake" = "スリープ防止中";
+"status.manual_awake" = "手動でスリープ防止中";
+"status.sleepable" = "スリープ可";
+"status.reason_format" = "理由：%@";
+"status.keep_time_format" = "継続時間：%@";
+"status.next_check_format" = "次回チェック：%@";
+"status.summary_awake" = "作業が継続中と判定されました。";
+"status.summary_sleepable" = "現在、スリープ防止を維持すべき兆候はありません。";
+
+// Mode line
+"mode.auto" = "モード：自動";
+"mode.manual_until_off" = "モード：手動（オフにするまで）";
+"mode.manual_until_format" = "モード：手動 %@ まで";
+
+// Menu items
+"menu.keep_30" = "30 分間スリープ防止";
+"menu.keep_1h" = "1 時間スリープ防止";
+"menu.keep_until_off" = "オフにするまでスリープ防止";
+"menu.resume_auto" = "自動モードに戻す";
+"menu.settings" = "設定…";
+"menu.logs" = "ログ…";
+"menu.logs_recent" = "最近のログ";
+"menu.logs_empty" = "最近のログはありません";
+"menu.quit" = "stayawake を終了";
+
+// Window titles
+"window.settings" = "stayawake の設定";
+"window.logs" = "stayawake のログ";
+
+// Policy reasons
+"reason.manual_until_off" = "手動スリープ防止（オフにするまで）";
+"reason.manual_timed_format" = "手動スリープ防止（残り約 %lld 分）";
+"reason.thermal_battery" = "バッテリー駆動で高温状態のため、デバイス保護のためスリープを許可";
+"reason.uncertain_signals" = "信号プローブに失敗、作業を中断しないようスリープ防止";
+"reason.active_process" = "作業プロセスを検出";
+"reason.active_process_recent_input" = "作業プロセスと最近の入力を同時に検出";
+"reason.resource_busy" = "リソースの継続的な活動（CPU／ネットワーク／ディスク）";
+"reason.fullscreen" = "フルスクリーンのアプリが動作中";
+"reason.fullscreen_recent_input" = "フルスクリーンと最近の入力を同時に検出";
+"reason.audio" = "オーディオ再生中";
+"reason.foreground_work" = "作業アプリが前面で動作中";
+"reason.foreground_work_recent_input" = "前面の作業アプリと最近の入力を同時に検出";
+"reason.user_idle" = "ユーザーが操作していません";
+"reason.no_keep_evidence" = "スリープ防止の根拠がありません";
+
+// Event log messages
+"event.app_started" = "stayawake 起動";
+"event.app_stopping" = "stayawake 終了";
+"event.manual_until_off" = "手動スリープ防止（オフにするまで）";
+"event.manual_until_format" = "%@ まで手動スリープ防止";
+"event.resume_auto" = "自動モードに復帰";
+"event.manual_expired" = "手動期間終了、自動モードに復帰";
+"event.assertion_failed_format" = "電源アサーションの作成に失敗：%@";
+
+// Log details
+"log.detail.manual" = "メニューから手動オーバーライドを選択しました。";
+"log.detail.active_process_format" = "作業プロセスに一致：%@";
+"log.detail.active_process_unknown" = "設定済みの作業プロセスに一致しました。";
+"log.detail.recent_input_format" = "%d 秒前に入力あり";
+"log.detail.resource" = "CPU、ネットワーク、またはディスクの活動がしきい値を超えています。";
+"log.detail.cpu_format" = "CPU %d%%（しきい値 %d%%）";
+"log.detail.network_format" = "ネットワーク %@（しきい値 %@）";
+"log.detail.disk_format" = "ディスク %@（しきい値 %@）";
+"log.detail.fullscreen_format" = "フルスクリーンの所有アプリ：%@";
+"log.detail.fullscreen_unknown" = "フルスクリーンウインドウを検出しました。";
+"log.detail.audio" = "システムのオーディオ出力が動作中です。";
+"log.detail.foreground_name_format" = "前面のアプリ：%@（%@）";
+"log.detail.foreground_format" = "前面の bundle：%@";
+"log.detail.foreground_unknown" = "設定済みの作業アプリが前面にあります。";
+"log.detail.uncertain_format" = "失敗したプローブ：%@";
+"log.detail.automatic" = "自動ポリシーがアサーション維持を決定しました。";
+
+// Durations
+"duration.until_format" = "%@ まで（残り %@）";
+"duration.until_off" = "オフにするまで";
+"duration.automatic_format" = "%d 秒後に再チェック";
+"duration.cooldown_format" = "%d 秒後に再チェック";
+"duration.remaining_hours_format" = "%d 時間 %d 分";
+"duration.remaining_minutes_format" = "%d 分";
+"duration.expired" = "期限切れ";
+
+// Settings tabs
+"settings.title" = "stayawake";
+"settings.subtitle" = "長時間タスクのためにスリープを自動制御します。";
+"settings.tab.general" = "一般";
+"settings.tab.rules" = "ルール";
+"settings.tab.advanced" = "詳細";
+
+// Settings sections
+"settings.section.idle" = "アイドル判定";
+"settings.section.language" = "言語";
+"settings.section.launch" = "起動";
+"settings.section.sampling" = "サンプリング";
+"settings.section.thresholds" = "しきい値";
+
+// Settings fields
+"settings.idle_threshold_min" = "アイドルしきい値（分）";
+"settings.language" = "言語";
+"settings.language.system" = "システム";
+"settings.language.english" = "English";
+"settings.language.simplified_chinese" = "簡体字中国語";
+"settings.language.traditional_chinese" = "繁体字中国語";
+"settings.language.japanese" = "日本語";
+"settings.language.korean" = "韓国語";
+"settings.language.french" = "フランス語";
+"settings.language.german" = "ドイツ語";
+"settings.language.spanish" = "スペイン語";
+"settings.launch_at_login" = "ログイン時に起動";
+"settings.sample_interval_sec" = "サンプリング間隔（秒）";
+"settings.cooldown_sec" = "解放クールダウン（秒）";
+"settings.cpu_threshold" = "CPU（任意のコア ≥）";
+"settings.network_threshold" = "ネットワーク速度 ≥";
+"settings.disk_threshold" = "ディスク速度 ≥";
+"settings.threshold_footnote" = "しきい値は過去 60 秒の P75 を使い、コア単位で正規化されるため、単一コアの飽和が全体平均で薄まりません。";
+
+// Rules
+"settings.rules.task_processes.title" = "作業プロセス（名前が一致すると実行中のタスクとして扱われます）";
+"settings.rules.task_processes.placeholder" = "例：ffmpeg";
+"settings.rules.work_apps.title" = "作業アプリ許可リスト（前面時に作業中と見なす）";
+"settings.rules.work_apps.placeholder" = "bundle id、例：com.apple.dt.Xcode";
+"settings.rules.blacklist.title" = "ブロックリスト（前面の作業アプリおよび該当するフルスクリーン信号を無視）";
+"settings.rules.blacklist.placeholder" = "bundle id";
+"settings.rules.count_format" = "%d 件";
+
+"settings.add" = "追加";
+"settings.empty" = "（なし）";
+"settings.remove_format" = "%@ を削除";
+
+// Logs
+"logs.title" = "最近のイベント";
+"logs.subtitle" = "このセッションのスリープ防止・解放・再チェックの離散ポイントを表示します。";
+"logs.refresh" = "更新";
+"logs.recent_count_format" = "最近 %d 件";
+"logs.empty" = "イベントはありません";
+"logs.empty_detail" = "ここには離散的な制御アクションが表示されます（連続したバックグラウンドサンプリングではありません）。";
+"logs.detail.placeholder" = "ログを選択すると詳細が表示されます。";
+"logs.detail.note" = "詳細";
+"logs.detail.none" = "なし";
+"logs.column.time" = "時刻";
+"logs.column.action" = "アクション";
+"logs.column.reason" = "理由";
+"logs.column.duration" = "継続時間";
+"logs.action.start" = "開始";
+"logs.action.stop" = "終了";
+"logs.action.manual" = "手動";
+"logs.action.auto" = "自動";
+"logs.action.keep_awake" = "スリープ防止";
+"logs.action.allow_sleep_released" = "アサーション解放";
+"logs.action.allow_sleep_system" = "システムのスリープ制御に委ねる";
+"logs.action.error" = "エラー";

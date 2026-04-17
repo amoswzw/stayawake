@@ -1,0 +1,151 @@
+// Status line
+"status.awake" = "Wach halten aktiv";
+"status.manual_awake" = "Manuell wach halten";
+"status.sleepable" = "Ruhezustand erlaubt";
+"status.reason_format" = "Grund: %@";
+"status.keep_time_format" = "Wachdauer: %@";
+"status.next_check_format" = "Nächste Prüfung: %@";
+"status.summary_awake" = "Arbeit läuft weiterhin.";
+"status.summary_sleepable" = "Momentan spricht nichts dafür, den Mac wach zu halten.";
+
+// Mode line
+"mode.auto" = "Modus: automatisch";
+"mode.manual_until_off" = "Modus: manuell (bis ausgeschaltet)";
+"mode.manual_until_format" = "Modus: manuell bis %@";
+
+// Menu items
+"menu.keep_30" = "30 Minuten wach halten";
+"menu.keep_1h" = "1 Stunde wach halten";
+"menu.keep_until_off" = "Bis zum Ausschalten wach halten";
+"menu.resume_auto" = "Automatikmodus fortsetzen";
+"menu.settings" = "Einstellungen…";
+"menu.logs" = "Protokolle…";
+"menu.logs_recent" = "Letzte Protokolle";
+"menu.logs_empty" = "Keine aktuellen Protokolle";
+"menu.quit" = "stayawake beenden";
+
+// Window titles
+"window.settings" = "stayawake-Einstellungen";
+"window.logs" = "stayawake-Protokolle";
+
+// Policy reasons
+"reason.manual_until_off" = "Manuelles Wachhalten (bis ausgeschaltet)";
+"reason.manual_timed_format" = "Manuelles Wachhalten (~%lld Min. verbleibend)";
+"reason.thermal_battery" = "Akkubetrieb mit kritischer Temperatur; Ruhezustand zum Geräteschutz erlaubt";
+"reason.uncertain_signals" = "Signalabfrage fehlgeschlagen; wach gehalten, um Arbeit nicht zu unterbrechen";
+"reason.active_process" = "Aufgabenprozess erkannt";
+"reason.active_process_recent_input" = "Aufgabenprozess plus kürzliche Eingabe";
+"reason.resource_busy" = "Anhaltende Ressourcenaktivität (CPU/Netzwerk/Festplatte)";
+"reason.fullscreen" = "Vollbildanwendung aktiv";
+"reason.fullscreen_recent_input" = "Vollbild plus kürzliche Eingabe";
+"reason.audio" = "Audio-Wiedergabe";
+"reason.foreground_work" = "Arbeitsanwendung im Vordergrund aktiv";
+"reason.foreground_work_recent_input" = "Arbeits-App im Vordergrund plus kürzliche Eingabe";
+"reason.user_idle" = "Nutzer inaktiv, keine Aktivität";
+"reason.no_keep_evidence" = "Kein aktiver Grund zum Wachhalten";
+
+// Event log messages
+"event.app_started" = "stayawake gestartet";
+"event.app_stopping" = "stayawake beendet";
+"event.manual_until_off" = "Manuelles Wachhalten (bis ausgeschaltet)";
+"event.manual_until_format" = "Manuelles Wachhalten bis %@";
+"event.resume_auto" = "Automatikmodus fortgesetzt";
+"event.manual_expired" = "Manuelles Zeitfenster abgelaufen; Automatikmodus fortgesetzt";
+"event.assertion_failed_format" = "Erstellen der Power-Assertion fehlgeschlagen: %@";
+
+// Log details
+"log.detail.manual" = "Manuelle Übersteuerung im Menü ausgewählt.";
+"log.detail.active_process_format" = "Aufgabenprozess erkannt: %@";
+"log.detail.active_process_unknown" = "Ein konfigurierter Aufgabenprozess wurde erkannt.";
+"log.detail.recent_input_format" = "Eingabe vor %d s";
+"log.detail.resource" = "CPU-, Netzwerk- oder Festplattenaktivität überschritt den Schwellenwert.";
+"log.detail.cpu_format" = "CPU %d%% (Schwelle %d%%)";
+"log.detail.network_format" = "Netzwerk %@ (Schwelle %@)";
+"log.detail.disk_format" = "Festplatte %@ (Schwelle %@)";
+"log.detail.fullscreen_format" = "Vollbild-Eigentümer: %@";
+"log.detail.fullscreen_unknown" = "Ein Vollbildfenster ist aktiv.";
+"log.detail.audio" = "System-Audioausgabe ist aktiv.";
+"log.detail.foreground_name_format" = "Vordergrund-App: %@ (%@)";
+"log.detail.foreground_format" = "Vordergrund-Bundle: %@";
+"log.detail.foreground_unknown" = "Eine konfigurierte Arbeits-App ist im Vordergrund.";
+"log.detail.uncertain_format" = "Fehlgeschlagene Sonden: %@";
+"log.detail.automatic" = "Automatische Richtlinie hat die Assertion beibehalten.";
+
+// Durations
+"duration.until_format" = "Bis %@ (%@ verbleibend)";
+"duration.until_off" = "Bis ausgeschaltet";
+"duration.automatic_format" = "Erneute Prüfung in %d s";
+"duration.cooldown_format" = "Erneute Prüfung in %d s";
+"duration.remaining_hours_format" = "%d Std. %d Min.";
+"duration.remaining_minutes_format" = "%d Min.";
+"duration.expired" = "abgelaufen";
+
+// Settings tabs
+"settings.title" = "stayawake";
+"settings.subtitle" = "Automatische Ruhesteuerung für länger laufende Aufgaben.";
+"settings.tab.general" = "Allgemein";
+"settings.tab.rules" = "Regeln";
+"settings.tab.advanced" = "Erweitert";
+
+// Settings sections
+"settings.section.idle" = "Inaktivitätserkennung";
+"settings.section.language" = "Sprache";
+"settings.section.launch" = "Start";
+"settings.section.sampling" = "Abtastung";
+"settings.section.thresholds" = "Schwellenwerte";
+
+// Settings fields
+"settings.idle_threshold_min" = "Inaktivitätsschwelle (Minuten)";
+"settings.language" = "Sprache";
+"settings.language.system" = "System";
+"settings.language.english" = "English";
+"settings.language.simplified_chinese" = "Vereinfachtes Chinesisch";
+"settings.language.traditional_chinese" = "Traditionelles Chinesisch";
+"settings.language.japanese" = "Japanisch";
+"settings.language.korean" = "Koreanisch";
+"settings.language.french" = "Französisch";
+"settings.language.german" = "Deutsch";
+"settings.language.spanish" = "Spanisch";
+"settings.launch_at_login" = "Beim Anmelden starten";
+"settings.sample_interval_sec" = "Abtastintervall (Sekunden)";
+"settings.cooldown_sec" = "Freigabe-Cooldown (Sekunden)";
+"settings.cpu_threshold" = "CPU (mindestens ein Kern ≥)";
+"settings.network_threshold" = "Netzwerkrate ≥";
+"settings.disk_threshold" = "Festplattenrate ≥";
+"settings.threshold_footnote" = "Schwellenwerte nutzen ein 60-s-P75-Fenster und sind pro Kern normalisiert, damit ein einzelner ausgelasteter Kern nicht im Maschinendurchschnitt verwässert wird.";
+
+// Rules
+"settings.rules.task_processes.title" = "Aufgabenprozesse (passende Namen zählen als laufende Aufgabe)";
+"settings.rules.task_processes.placeholder" = "z. B. ffmpeg";
+"settings.rules.work_apps.title" = "Arbeits-App-Zulassliste (Vordergrund gilt als Arbeit)";
+"settings.rules.work_apps.placeholder" = "Bundle-ID, z. B. com.apple.dt.Xcode";
+"settings.rules.blacklist.title" = "Sperrliste (ignoriert Vordergrund-Arbeits-Apps und passende Vollbildsignale)";
+"settings.rules.blacklist.placeholder" = "Bundle-ID";
+"settings.rules.count_format" = "%d Einträge";
+
+"settings.add" = "Hinzufügen";
+"settings.empty" = "(keine)";
+"settings.remove_format" = "%@ entfernen";
+
+// Logs
+"logs.title" = "Aktuelle Ereignisse";
+"logs.subtitle" = "Zeigt einzelne Wachhalte-, Freigabe- und erneute Prüfpunkte dieser Sitzung.";
+"logs.refresh" = "Aktualisieren";
+"logs.recent_count_format" = "%d aktuell";
+"logs.empty" = "Keine Ereignisse";
+"logs.empty_detail" = "Diese Ansicht zeigt diskrete Steuerungsaktionen, nicht kontinuierliche Hintergrundabtastung.";
+"logs.detail.placeholder" = "Wählen Sie einen Protokolleintrag für Details.";
+"logs.detail.note" = "Details";
+"logs.detail.none" = "Keine";
+"logs.column.time" = "Zeit";
+"logs.column.action" = "Aktion";
+"logs.column.reason" = "Grund";
+"logs.column.duration" = "Wachdauer";
+"logs.action.start" = "Start";
+"logs.action.stop" = "Stopp";
+"logs.action.manual" = "Manuell";
+"logs.action.auto" = "Auto";
+"logs.action.keep_awake" = "Wach halten";
+"logs.action.allow_sleep_released" = "Assertion freigeben";
+"logs.action.allow_sleep_system" = "Systemruhe zulassen";
+"logs.action.error" = "Fehler";

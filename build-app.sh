@@ -55,6 +55,12 @@ cat > "$APP_BUNDLE/Contents/Info.plist" <<'PLIST'
     <array>
         <string>en</string>
         <string>zh-Hans</string>
+        <string>zh-Hant</string>
+        <string>ja</string>
+        <string>ko</string>
+        <string>fr</string>
+        <string>de</string>
+        <string>es</string>
     </array>
     <key>LSUIElement</key>
     <true/>

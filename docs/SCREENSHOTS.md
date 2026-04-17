@@ -1,6 +1,9 @@
 ---
 layout: default
 title: Screenshots
+description: Screenshots of the stayawake macOS keep awake app, including the menu bar state, settings, rules, advanced thresholds, and logs.
+image: /screenshots/stayawake_screen_shot.jpg
+image_alt: stayawake macOS menu with current state and recent logs
 ---
 
 <section class="page">
@@ -10,7 +13,7 @@ title: Screenshots
     <p>The app keeps the main workflow in the menu: current state, reason, next check, recent logs, and quick access to settings.</p>
     <div class="actions">
       <a class="button secondary" href="./">Back to home</a>
-      <a class="button" href="{{ site.repository_url }}/releases/latest">Download latest DMG</a>
+      <a class="button" href="{{ site.download_url }}">Download latest DMG</a>
     </div>
   </div>
 

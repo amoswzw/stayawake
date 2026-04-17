@@ -100,6 +100,12 @@
 "settings.language.system" = "跟随系统";
 "settings.language.english" = "English";
 "settings.language.simplified_chinese" = "简体中文";
+"settings.language.traditional_chinese" = "繁体中文";
+"settings.language.japanese" = "日语";
+"settings.language.korean" = "韩语";
+"settings.language.french" = "法语";
+"settings.language.german" = "德语";
+"settings.language.spanish" = "西班牙语";
 "settings.launch_at_login" = "登录时启动";
 "settings.sample_interval_sec" = "采样间隔（秒）";
 "settings.cooldown_sec" = "释放冷却（秒）";

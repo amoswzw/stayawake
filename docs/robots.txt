@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /stayawake/
+
+User-agent: GPTBot
+Allow: /stayawake/
+
+User-agent: ClaudeBot
+Allow: /stayawake/
+
+User-agent: PerplexityBot
+Allow: /stayawake/
+
+Sitemap: https://amoswzw.github.io/stayawake/sitemap.xml

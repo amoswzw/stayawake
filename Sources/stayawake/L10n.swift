@@ -32,12 +32,20 @@ enum L10n {
     }
 
     private static func activeBundle(language: AppLanguage) -> Bundle {
-        guard let lproj = language.lprojName,
-              let path = AppResources.bundle.path(forResource: lproj, ofType: "lproj"),
-              let bundle = Bundle(path: path)
-        else {
+        guard let lproj = language.lprojName else {
             return AppResources.bundle
         }
-        return bundle
+        let root = AppResources.bundle.bundleURL
+        // SwiftPM's resource processor lowercases `.lproj` directory names, but a
+        // hand-copied bundle may keep the original case. Try both so lookups work
+        // in either layout.
+        for name in [lproj, lproj.lowercased()] {
+            let url = root.appendingPathComponent("\(name).lproj", isDirectory: true)
+            if FileManager.default.fileExists(atPath: url.path),
+               let bundle = Bundle(url: url) {
+                return bundle
+            }
+        }
+        return AppResources.bundle
     }
 }

@@ -1,11 +1,118 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
   <head>
+    {% assign page_title = page.title | default: site.title %}
+    {% if page_title == site.title %}
+      {% assign full_title = site.title %}
+    {% else %}
+      {% assign full_title = page_title | append: ' · ' | append: site.title %}
+    {% endif %}
+    {% assign page_description = page.description | default: site.description %}
+    {% assign page_image = page.image | default: site.image %}
+    {% assign image_alt = page.image_alt | default: site.image_alt %}
+    {% assign canonical_url = page.url | absolute_url %}
+    {% assign robots = page.robots | default: 'index,follow,max-image-preview:large' %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ site.description }}">
-    <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page_description | strip_html | normalize_whitespace | escape }}">
+    <meta name="keywords" content="{{ site.keywords | join: ', ' | escape }}">
+    <meta name="robots" content="{{ robots }}">
+    <meta name="author" content="amoswzw">
+    <meta name="theme-color" content="#15a36a">
+    <meta name="application-name" content="{{ site.title }}">
+    <meta name="apple-mobile-web-app-title" content="{{ site.title }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:title" content="{{ full_title | strip_html | normalize_whitespace | escape }}">
+    <meta property="og:description" content="{{ page_description | strip_html | normalize_whitespace | escape }}">
+    <meta property="og:type" content="{{ page.og_type | default: 'website' }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{{ page_image | absolute_url }}">
+    <meta property="og:image:alt" content="{{ image_alt | escape }}">
+    <meta property="og:locale" content="{{ site.locale | default: 'en_US' }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ full_title | strip_html | normalize_whitespace | escape }}">
+    <meta name="twitter:description" content="{{ page_description | strip_html | normalize_whitespace | escape }}">
+    <meta name="twitter:image" content="{{ page_image | absolute_url }}">
+    <title>{{ full_title | strip_html | normalize_whitespace | escape }}</title>
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="icon" href="{{ site.logo | relative_url }}" sizes="192x192">
+    <link rel="apple-touch-icon" href="{{ site.logo | relative_url }}">
+    <link rel="alternate" type="text/plain" href="{{ '/llms.txt' | absolute_url }}" title="llms.txt">
+    <link rel="sitemap" type="application/xml" href="{{ '/sitemap.xml' | absolute_url }}">
     <link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "@id": {{ "/" | absolute_url | append: "#software" | jsonify }},
+            "name": {{ site.title | jsonify }},
+            "alternateName": ["macOS keep awake app", "automatic sleep control for Mac"],
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "macOS 13 or later",
+            "softwareRequirements": "macOS 13 or later",
+            "description": {{ site.description | jsonify }},
+            "url": {{ "/" | absolute_url | jsonify }},
+            "downloadUrl": {{ site.download_url | jsonify }},
+            "sameAs": [
+              {{ site.repository_url | jsonify }}
+            ],
+            "license": {{ site.repository_url | append: "/blob/main/LICENSE" | jsonify }},
+            "image": {{ site.logo | absolute_url | jsonify }},
+            "screenshot": [
+              {{ "/assets/status-preview.png" | absolute_url | jsonify }},
+              {{ "/screenshots/stayawake_screen_shot.jpg" | absolute_url | jsonify }},
+              {{ "/screenshots/stayawake_screen_shot2.jpg" | absolute_url | jsonify }}
+            ],
+            "keywords": {{ site.keywords | jsonify }},
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "Automatically prevents macOS idle sleep while long-running work is active",
+              "Uses CPU, network, disk, audio, fullscreen, foreground app, process, idle, power, and thermal signals",
+              "Releases the power assertion when useful activity is quiet",
+              "Runs locally with no account, telemetry, cloud service, or Accessibility permission"
+            ]
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": {{ "/" | absolute_url | append: "#source" | jsonify }},
+            "name": "stayawake source code",
+            "codeRepository": {{ site.repository_url | jsonify }},
+            "programmingLanguage": "Swift",
+            "license": {{ site.repository_url | append: "/blob/main/LICENSE" | jsonify }},
+            "runtimePlatform": "macOS"
+          },
+          {
+            "@type": "WebSite",
+            "@id": {{ "/" | absolute_url | append: "#website" | jsonify }},
+            "url": {{ "/" | absolute_url | jsonify }},
+            "name": {{ site.title | jsonify }},
+            "description": {{ site.description | jsonify }},
+            "inLanguage": {{ site.lang | default: "en" | jsonify }}
+          },
+          {
+            "@type": "WebPage",
+            "@id": {{ canonical_url | append: "#webpage" | jsonify }},
+            "url": {{ canonical_url | jsonify }},
+            "name": {{ full_title | strip_html | normalize_whitespace | jsonify }},
+            "description": {{ page_description | strip_html | normalize_whitespace | jsonify }},
+            "isPartOf": {
+              "@id": {{ "/" | absolute_url | append: "#website" | jsonify }}
+            },
+            "about": {
+              "@id": {{ "/" | absolute_url | append: "#software" | jsonify }}
+            },
+            "dateModified": {{ site.time | date_to_xmlschema | jsonify }},
+            "inLanguage": {{ page.lang | default: site.lang | default: "en" | jsonify }}
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="site-topbar" aria-label="Site navigation">
@@ -15,7 +122,8 @@
       </a>
       <nav class="topnav">
         <a href="{{ '/SCREENSHOTS.html' | relative_url }}">Screenshots</a>
-        <a href="{{ site.repository_url }}/releases/latest">Download</a>
+        <a href="{{ '/agents/' | relative_url }}">Agent notes</a>
+        <a href="{{ site.download_url }}">Download</a>
         <a href="{{ site.repository_url }}">GitHub</a>
       </nav>
     </header>
@@ -23,5 +131,12 @@
     <main>
       {{ content }}
     </main>
+
+    <footer class="site-footer">
+      <a href="{{ '/llms.txt' | relative_url }}">llms.txt</a>
+      <a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a>
+      <a href="{{ '/robots.txt' | relative_url }}">Robots</a>
+      <a href="{{ site.repository_url }}">Source</a>
+    </footer>
   </body>
 </html>

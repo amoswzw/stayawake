@@ -1,5 +1,25 @@
 title: stayawake
-description: Lightweight automatic sleep control for macOS.
+tagline: Automatic macOS keep-awake menu bar app
+description: Lightweight macOS keep awake app that automatically prevents idle sleep during builds, downloads, audio playback, fullscreen work, and other long-running tasks.
+url: https://amoswzw.github.io
+baseurl: /stayawake
+lang: en
+locale: en_US
+repository_url: https://github.com/amoswzw/stayawake
+download_url: https://github.com/amoswzw/stayawake/releases/latest
+homebrew_install: brew install --cask amoswzw/tap/stayawake
+logo: /assets/app-icon.png
+image: /assets/status-preview.png
+image_alt: Awake and Sleep status icons for the stayawake macOS menu bar app
+keywords:
+  - macOS keep awake
+  - Mac prevent sleep
+  - keep Mac awake
+  - macOS sleep control
+  - menu bar utility
+  - automatic sleep control
+  - macOS power assertion
+  - long-running Mac tasks
+  - caffeinate alternative
 show_downloads: false
 markdown: kramdown
-repository_url: https://github.com/amoswzw/stayawake

@@ -36,7 +36,7 @@ See [Screenshots](docs/SCREENSHOTS.md) for the menu, settings tabs, and logs win
 The fastest way to install a signed, notarized build is through Homebrew:
 
 ```sh
-brew tap wangzewang/tap
+brew tap amoswzw/tap
 brew install --cask stayawake
 ```
 

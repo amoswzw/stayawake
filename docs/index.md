@@ -72,7 +72,7 @@ title: stayawake
       <h3>Homebrew</h3>
 
 ```sh
-brew tap wangzewang/tap
+brew tap amoswzw/tap
 brew install --cask stayawake
 ```
 

@@ -4,20 +4,24 @@ title: stayawake
 ---
 
 <section class="hero">
-  <div>
+  <div class="hero-copy">
     <p class="eyebrow"><span class="pulse"></span> macOS menu-bar utility</p>
     <h1>Awake when work is alive.</h1>
     <p class="lede">stayawake watches lightweight system signals, keeps long-running work safe, and steps aside when your Mac can sleep.</p>
+
+    <div class="hero-install" id="install" aria-label="Homebrew install command">
+      <div class="hero-install-label">
+        <span>Homebrew</span>
+        <span>macOS 13+</span>
+      </div>
+      <pre><code>brew tap amoswzw/tap
+brew install --cask stayawake</code></pre>
+    </div>
+
     <div class="actions">
-      <a class="button" href="#install">Install with Homebrew</a>
       <a class="button secondary" href="{{ site.repository_url }}/releases/latest">Download latest DMG</a>
       <a class="button secondary" href="{{ site.repository_url }}">View source</a>
     </div>
-    <ul class="quick-facts" aria-label="Project highlights">
-      <li><strong>13+</strong><span>macOS</span></li>
-      <li><strong>0</strong><span>cloud services</span></li>
-      <li><strong>5</strong><span>recent logs in menu</span></li>
-    </ul>
   </div>
 
   <div class="status-demo" aria-label="stayawake menu preview">
@@ -57,30 +61,6 @@ title: stayawake
           <span class="row-note">Sleep allowed when signals are quiet</span>
         </span>
         <span class="tag sleep">Sleep</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="install">
-  <div class="section-header">
-    <h2>Install in one command.</h2>
-    <p>Use Homebrew for the shortest install path, or download the latest DMG from GitHub Releases.</p>
-  </div>
-  <div class="install-options">
-    <div>
-      <h3>Homebrew</h3>
-
-```sh
-brew install --cask amoswzw/tap/stayawake
-```
-
-    </div>
-    <div>
-      <h3>Direct download</h3>
-      <p>Grab the latest DMG from GitHub Releases and drag <code>stayawake.app</code> into <code>/Applications</code>.</p>
-      <div class="actions">
-        <a class="button secondary" href="{{ site.repository_url }}/releases/latest">Open Releases</a>
       </div>
     </div>
   </div>

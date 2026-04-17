@@ -97,6 +97,10 @@ a {
   padding: 48px max(24px, calc((100vw - 1120px) / 2)) 28px;
 }
 
+.hero-copy {
+  min-width: 0;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -139,6 +143,51 @@ h1 {
   line-height: 1.45;
 }
 
+.hero-install {
+  width: min(100%, 620px);
+  margin-top: 28px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.hero-install-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--ink);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.hero-install pre {
+  margin: 0;
+  padding: 15px 16px;
+  overflow-x: auto;
+  border-radius: 0 0 6px 6px;
+  background: #111413;
+  color: #f7faf8;
+}
+
+.hero-install code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.hero .actions {
+  margin-top: 22px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -163,36 +212,6 @@ h1 {
 .button.secondary {
   background: transparent;
   color: var(--ink);
-}
-
-.quick-facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  max-width: 600px;
-  margin: 34px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.quick-facts li {
-  min-height: 78px;
-  padding: 14px;
-  border: 2px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.66);
-}
-
-.quick-facts strong {
-  display: block;
-  font-size: 24px;
-  line-height: 1;
-}
-
-.quick-facts span {
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
 }
 
 .status-demo {
@@ -347,34 +366,6 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
-}
-
-.install-options {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-}
-
-.install-options > div {
-  padding: 24px;
-  border: 2px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-}
-
-.install-options h3 {
-  margin: 0 0 14px;
-  font-size: 22px;
-}
-
-.install-options pre {
-  margin: 0;
-}
-
-@media (max-width: 720px) {
-  .install-options {
-    grid-template-columns: 1fr;
-  }
 }
 
 .signal {
@@ -608,7 +599,6 @@ h1 {
     background: rgba(17, 20, 19, 0.88);
   }
 
-  .quick-facts li,
   .signal,
   .state-line,
   .privacy-list li,
@@ -736,10 +726,6 @@ h1 {
     width: 100%;
     max-width: 100%;
     text-align: center;
-  }
-
-  .quick-facts {
-    gap: 8px;
   }
 
   .page {

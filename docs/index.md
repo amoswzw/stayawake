@@ -65,21 +65,20 @@ title: stayawake
 <section class="section" id="install">
   <div class="section-header">
     <h2>Install in one command.</h2>
-    <p>Signed with a Developer ID and notarized by Apple, so Gatekeeper opens it without extra prompts.</p>
+    <p>Use Homebrew for the shortest install path, or download the latest DMG from GitHub Releases.</p>
   </div>
   <div class="install-options">
     <div>
       <h3>Homebrew</h3>
 
 ```sh
-brew tap amoswzw/tap
-brew install --cask stayawake
+brew install --cask amoswzw/tap/stayawake
 ```
 
     </div>
     <div>
       <h3>Direct download</h3>
-      <p>Grab the latest signed DMG from GitHub Releases and drag <code>stayawake.app</code> into <code>/Applications</code>.</p>
+      <p>Grab the latest DMG from GitHub Releases and drag <code>stayawake.app</code> into <code>/Applications</code>.</p>
       <div class="actions">
         <a class="button secondary" href="{{ site.repository_url }}/releases/latest">Open Releases</a>
       </div>

@@ -8,19 +8,17 @@ stayawake is a lightweight macOS menu-bar utility that automatically decides whe
 
 It is designed for long-running work: builds, downloads, renders, scripts, audio playback, fullscreen activity, and focused work apps. When there is no useful activity, it lets macOS sleep normally.
 
-Project page: https://amoswzw.github.io/stayawake/
+[Project page](https://amoswzw.github.io/stayawake/) · [Latest release](https://github.com/amoswzw/stayawake/releases/latest) · [Screenshots](docs/SCREENSHOTS.md)
 
 ## Preview
 
-The app uses a small character icon in the menu bar. The sleeping character means sleep is allowed; the energized character means stayawake is actively keeping the Mac awake.
+The menu-bar character changes with the current decision. The sleeping character means macOS can sleep normally; the energized character means stayawake is actively keeping the Mac awake.
 
 ![Awake and Sleep menu-bar status icons](docs/assets/status-preview.png)
 
 ## Screenshots
 
-Screenshots are kept out of the main README so the project page stays compact.
-
-See [Screenshots](docs/SCREENSHOTS.md) for the menu, settings tabs, and logs window.
+More screenshots: [Screenshots](docs/SCREENSHOTS.md).
 
 ## Features
 
@@ -35,18 +33,22 @@ See [Screenshots](docs/SCREENSHOTS.md) for the menu, settings tabs, and logs win
 
 ## Install
 
-The fastest way to install a signed, notarized build is through Homebrew:
+The fastest way to install is through Homebrew:
 
 ```sh
-brew tap amoswzw/tap
-brew install --cask stayawake
+brew install --cask amoswzw/tap/stayawake
 ```
 
 You can also download the latest DMG directly from the [GitHub Releases](https://github.com/amoswzw/stayawake/releases/latest) page and drag `stayawake.app` into `/Applications`.
 
 ## Requirements
 
+Runtime:
+
 - macOS 13 or later
+
+Development:
+
 - Xcode 15 or Swift 5.9 or later
 
 ## Build
@@ -57,11 +59,11 @@ swift build -c release
 open build/stayawake.app
 ```
 
-`build-app.sh` creates a minimal `.app` bundle at `build/stayawake.app`. The app runs as a menu-bar utility and does not show a Dock icon.
+`build-app.sh` creates an ad-hoc signed `.app` bundle at `build/stayawake.app`.
 
 ## Usage
 
-Launch the app and click the menu-bar icon.
+Launch the app and click the menu-bar icon. stayawake does not show a Dock icon.
 
 The menu shows:
 
@@ -188,52 +190,6 @@ swift test
 ```
 
 The test suite covers policy decisions, signal derivation, log deduplication, blocklist behavior, and sliding-window behavior.
-
-## Release Notes
-
-This repository builds a local, unsigned `.app` bundle. If you plan to distribute binaries, sign and notarize the app with your Apple Developer account.
-
-Release requirements:
-
-- GitHub Actions must be enabled for the repository.
-- The release tag must use semantic version format, for example `v0.1.0`.
-- `CFBundleShortVersionString` in `build-app.sh` must match the release tag without the leading `v`.
-- `swift test` must pass on the GitHub macOS runner.
-- `./build-app.sh` must produce `build/stayawake.app`.
-- Unsigned DMG release requires no Apple credentials, but users may see Gatekeeper warnings.
-- Public distribution should use a Developer ID certificate and Apple notarization credentials.
-
-GitHub Actions builds and publishes a DMG only when the **Release macOS DMG** workflow is triggered manually from the Actions tab. Enter the release tag (for example `v0.1.0`) and run the workflow. The workflow runs tests, builds `stayawake.app`, packages `stayawake-0.1.0-macos.dmg`, writes a SHA-256 checksum, and uploads both files to the GitHub Release.
-
-### Signing and notarization
-
-For public distribution outside the Mac App Store, configure these GitHub Actions repository secrets before creating the release tag:
-
-| Secret | Value |
-| --- | --- |
-| `APPLE_CERTIFICATE_P12_BASE64` | Base64-encoded `Developer ID Application` `.p12` certificate |
-| `APPLE_CERTIFICATE_PASSWORD` | Password used when exporting the `.p12` certificate |
-| `APPLE_ID` | Apple ID email used for notarization |
-| `APPLE_APP_SPECIFIC_PASSWORD` | App-specific password for that Apple ID |
-| `APPLE_TEAM_ID` | Apple Developer Team ID |
-
-On your Mac, export the certificate from Keychain Access, then encode it:
-
-```bash
-base64 -i DeveloperIDApplication.p12 | pbcopy
-```
-
-Paste the copied value into `APPLE_CERTIFICATE_P12_BASE64`.
-
-When these secrets are present, the workflow signs the app, signs the DMG, submits the DMG to Apple notarization, staples the notarization ticket, and then uploads the final DMG. Without these secrets, the workflow still builds an unsigned DMG.
-
-This workflow uses Developer ID distribution. Mac App Store distribution is a separate path and requires App Sandbox, App Store signing, provisioning, and App Store Connect submission.
-
-Before publishing your own fork, review:
-
-- `CFBundleIdentifier` in `build-app.sh`
-- `CFBundleShortVersionString` in `build-app.sh`
-- The copyright holder in `LICENSE`
 
 ## License
 

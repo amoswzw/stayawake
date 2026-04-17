@@ -1,0 +1,145 @@
+// Status line
+"status.awake" = "保持唤醒中";
+"status.manual_awake" = "手动保持中";
+"status.sleepable" = "可休眠";
+"status.reason_format" = "原因：%@";
+"status.keep_time_format" = "保持时间：%@";
+"status.next_check_format" = "下次检查：%@";
+"status.summary_awake" = "检测到任务仍在工作。";
+"status.summary_sleepable" = "当前没有需要继续保持唤醒的迹象。";
+
+// Mode line
+"mode.auto" = "模式：自动";
+"mode.manual_until_off" = "模式：手动保持（直到关闭）";
+"mode.manual_until_format" = "模式：手动保持至 %@";
+
+// Menu items
+"menu.keep_30" = "保持唤醒 30 分钟";
+"menu.keep_1h" = "保持唤醒 1 小时";
+"menu.keep_until_off" = "保持唤醒 直到关闭";
+"menu.resume_auto" = "恢复自动模式";
+"menu.settings" = "设置…";
+"menu.logs" = "日志…";
+"menu.logs_recent" = "最近日志";
+"menu.logs_empty" = "暂无最近日志";
+"menu.quit" = "退出 stayawake";
+
+// Window titles
+"window.settings" = "stayawake 设置";
+"window.logs" = "stayawake 日志";
+
+// Policy reasons
+"reason.manual_until_off" = "手动保持（直到关闭）";
+"reason.manual_timed_format" = "手动保持（剩余约 %lld 分钟）";
+"reason.thermal_battery" = "电池供电且热状态严重，允许休眠以保护设备";
+"reason.uncertain_signals" = "信号探测失败，保持唤醒以避免中断任务";
+"reason.active_process" = "检测到任务型进程运行";
+"reason.active_process_recent_input" = "任务进程与最近输入同时存在";
+"reason.resource_busy" = "资源持续活跃（CPU/网络/磁盘）";
+"reason.fullscreen" = "全屏应用运行中";
+"reason.fullscreen_recent_input" = "全屏与最近输入同时存在";
+"reason.audio" = "音频播放中";
+"reason.foreground_work" = "前台工作应用活跃";
+"reason.foreground_work_recent_input" = "前台工作应用与最近输入同时存在";
+"reason.user_idle" = "用户空闲且无活动";
+"reason.no_keep_evidence" = "没有有效的保持唤醒证据";
+
+// Event log messages
+"event.app_started" = "stayawake 启动";
+"event.app_stopping" = "stayawake 退出";
+"event.manual_until_off" = "手动保持（直到关闭）";
+"event.manual_until_format" = "手动保持到 %@";
+"event.resume_auto" = "恢复自动模式";
+"event.manual_expired" = "手动保持时间到，恢复自动";
+"event.assertion_failed_format" = "创建电源断言失败：%@";
+
+// Log details
+"log.detail.manual" = "从菜单选择了手动覆盖。";
+"log.detail.active_process_format" = "匹配到任务进程：%@";
+"log.detail.active_process_unknown" = "匹配到已配置的任务进程。";
+"log.detail.recent_input_format" = "%d 秒前有输入";
+"log.detail.resource" = "CPU、网络或磁盘活动超过阈值。";
+"log.detail.cpu_format" = "CPU %d%%（阈值 %d%%）";
+"log.detail.network_format" = "网络 %@（阈值 %@）";
+"log.detail.disk_format" = "磁盘 %@（阈值 %@）";
+"log.detail.fullscreen_format" = "全屏窗口归属：%@";
+"log.detail.fullscreen_unknown" = "检测到全屏窗口。";
+"log.detail.audio" = "系统音频输出正在活动。";
+"log.detail.foreground_name_format" = "前台应用：%@（%@）";
+"log.detail.foreground_format" = "前台 bundle：%@";
+"log.detail.foreground_unknown" = "已配置的工作应用位于前台。";
+"log.detail.uncertain_format" = "探测失败：%@";
+"log.detail.automatic" = "自动策略决定继续保持电源断言。";
+
+// Durations
+"duration.until_format" = "直到 %@（剩余 %@）";
+"duration.until_off" = "直到手动关闭";
+"duration.automatic_format" = "保持 %d 秒后重新检查";
+"duration.cooldown_format" = "%d 秒后重新检查";
+"duration.remaining_hours_format" = "%d 小时 %d 分钟";
+"duration.remaining_minutes_format" = "%d 分钟";
+"duration.expired" = "已过期";
+
+// Settings tabs
+"settings.title" = "stayawake";
+"settings.subtitle" = "为长时间任务自动管理休眠。";
+"settings.tab.general" = "常规";
+"settings.tab.rules" = "规则";
+"settings.tab.advanced" = "高级";
+
+// Settings sections
+"settings.section.idle" = "空闲判定";
+"settings.section.language" = "语言";
+"settings.section.launch" = "启动";
+"settings.section.sampling" = "采样";
+"settings.section.thresholds" = "阈值";
+
+// Settings fields
+"settings.idle_threshold_min" = "空闲阈值（分钟）";
+"settings.language" = "语言";
+"settings.language.system" = "跟随系统";
+"settings.language.english" = "English";
+"settings.language.simplified_chinese" = "简体中文";
+"settings.launch_at_login" = "登录时启动";
+"settings.sample_interval_sec" = "采样间隔（秒）";
+"settings.cooldown_sec" = "释放冷却（秒）";
+"settings.cpu_threshold" = "CPU（任一核心 ≥）";
+"settings.network_threshold" = "网络速率 ≥";
+"settings.disk_threshold" = "磁盘速率 ≥";
+"settings.threshold_footnote" = "阈值使用过去 60 秒的 P75，按每核归一化，避免单核满载被整机平均稀释。";
+
+// Rules
+"settings.rules.task_processes.title" = "任务进程（匹配名称则视为有任务在跑）";
+"settings.rules.task_processes.placeholder" = "例如 ffmpeg";
+"settings.rules.work_apps.title" = "工作应用白名单（前台时视为工作中）";
+"settings.rules.work_apps.placeholder" = "bundle id，例如 com.apple.dt.Xcode";
+"settings.rules.blacklist.title" = "黑名单（忽略前台工作和匹配归属的全屏信号）";
+"settings.rules.blacklist.placeholder" = "bundle id";
+"settings.rules.count_format" = "%d 项";
+
+"settings.add" = "添加";
+"settings.empty" = "（无）";
+"settings.remove_format" = "移除 %@";
+
+// Logs
+"logs.title" = "最近事件";
+"logs.subtitle" = "仅记录动作发生时的唤醒、释放与重新检查节点。";
+"logs.refresh" = "刷新";
+"logs.recent_count_format" = "最近 %d 条";
+"logs.empty" = "暂无事件";
+"logs.empty_detail" = "这里显示离散的控制动作，而不是后台连续采样记录。";
+"logs.detail.placeholder" = "选择一条日志查看详情。";
+"logs.detail.note" = "详情";
+"logs.detail.none" = "无";
+"logs.column.time" = "时间";
+"logs.column.action" = "动作";
+"logs.column.reason" = "原因";
+"logs.column.duration" = "保持时间";
+"logs.action.start" = "启动";
+"logs.action.stop" = "退出";
+"logs.action.manual" = "手动";
+"logs.action.auto" = "自动";
+"logs.action.keep_awake" = "保持唤醒";
+"logs.action.allow_sleep_released" = "释放断言";
+"logs.action.allow_sleep_system" = "交由系统休眠";
+"logs.action.error" = "错误";

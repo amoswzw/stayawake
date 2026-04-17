@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Local app bundle output
+build/
+
+# Xcode user state
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcuserdatad/
+
+# Editor state
+.vscode/
+.idea/
+
+# Logs and crash reports
+*.log
+*.crash

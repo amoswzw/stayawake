@@ -1,0 +1,145 @@
+// Status line
+"status.awake" = "Keeping awake";
+"status.manual_awake" = "Manual keep awake";
+"status.sleepable" = "Sleep allowed";
+"status.reason_format" = "Reason: %@";
+"status.keep_time_format" = "Keeps awake: %@";
+"status.next_check_format" = "Next check: %@";
+"status.summary_awake" = "Work is still in progress.";
+"status.summary_sleepable" = "No signal currently suggests keeping the Mac awake.";
+
+// Mode line
+"mode.auto" = "Mode: automatic";
+"mode.manual_until_off" = "Mode: manual (until turned off)";
+"mode.manual_until_format" = "Mode: manual until %@";
+
+// Menu items
+"menu.keep_30" = "Keep awake for 30 minutes";
+"menu.keep_1h" = "Keep awake for 1 hour";
+"menu.keep_until_off" = "Keep awake until turned off";
+"menu.resume_auto" = "Resume automatic mode";
+"menu.settings" = "Settings…";
+"menu.logs" = "Logs…";
+"menu.logs_recent" = "Recent logs";
+"menu.logs_empty" = "No recent logs";
+"menu.quit" = "Quit stayawake";
+
+// Window titles
+"window.settings" = "stayawake Settings";
+"window.logs" = "stayawake Logs";
+
+// Policy reasons
+"reason.manual_until_off" = "Manual keep-awake (until turned off)";
+"reason.manual_timed_format" = "Manual keep-awake (~%lld min remaining)";
+"reason.thermal_battery" = "On battery with serious thermal state; allowing sleep to protect the device";
+"reason.uncertain_signals" = "Signal probe failed; keeping awake to avoid interrupting work";
+"reason.active_process" = "Task-type process detected";
+"reason.active_process_recent_input" = "Task process plus recent input";
+"reason.resource_busy" = "Sustained resource activity (CPU/network/disk)";
+"reason.fullscreen" = "Fullscreen application active";
+"reason.fullscreen_recent_input" = "Fullscreen plus recent input";
+"reason.audio" = "Audio playing";
+"reason.foreground_work" = "Foreground work application active";
+"reason.foreground_work_recent_input" = "Foreground work app plus recent input";
+"reason.user_idle" = "User idle with no activity";
+"reason.no_keep_evidence" = "No active keep-awake evidence";
+
+// Event log messages
+"event.app_started" = "stayawake started";
+"event.app_stopping" = "stayawake exiting";
+"event.manual_until_off" = "Manual keep-awake (until turned off)";
+"event.manual_until_format" = "Manual keep-awake until %@";
+"event.resume_auto" = "Resumed automatic mode";
+"event.manual_expired" = "Manual window expired; resumed automatic";
+"event.assertion_failed_format" = "Failed to create power assertion for: %@";
+
+// Log details
+"log.detail.manual" = "Manual override selected from the menu.";
+"log.detail.active_process_format" = "Matched task process: %@";
+"log.detail.active_process_unknown" = "A configured task process matched.";
+"log.detail.recent_input_format" = "input %d s ago";
+"log.detail.resource" = "CPU, network, or disk activity exceeded its threshold.";
+"log.detail.cpu_format" = "CPU %d%% (threshold %d%%)";
+"log.detail.network_format" = "Network %@ (threshold %@)";
+"log.detail.disk_format" = "Disk %@ (threshold %@)";
+"log.detail.fullscreen_format" = "Fullscreen owner: %@";
+"log.detail.fullscreen_unknown" = "A fullscreen window is active.";
+"log.detail.audio" = "System audio output is active.";
+"log.detail.foreground_name_format" = "Foreground app: %@ (%@)";
+"log.detail.foreground_format" = "Foreground bundle: %@";
+"log.detail.foreground_unknown" = "A configured work app is in front.";
+"log.detail.uncertain_format" = "Failed probes: %@";
+"log.detail.automatic" = "Automatic policy decided to keep the assertion.";
+
+// Durations
+"duration.until_format" = "Until %@ (%@ remaining)";
+"duration.until_off" = "Until turned off";
+"duration.automatic_format" = "Rechecks after %d s";
+"duration.cooldown_format" = "Rechecks in %d s";
+"duration.remaining_hours_format" = "%d h %d min";
+"duration.remaining_minutes_format" = "%d min";
+"duration.expired" = "expired";
+
+// Settings tabs
+"settings.title" = "stayawake";
+"settings.subtitle" = "Automatic sleep control for long-running work.";
+"settings.tab.general" = "General";
+"settings.tab.rules" = "Rules";
+"settings.tab.advanced" = "Advanced";
+
+// Settings sections
+"settings.section.idle" = "Idle detection";
+"settings.section.language" = "Language";
+"settings.section.launch" = "Launch";
+"settings.section.sampling" = "Sampling";
+"settings.section.thresholds" = "Thresholds";
+
+// Settings fields
+"settings.idle_threshold_min" = "Idle threshold (minutes)";
+"settings.language" = "Language";
+"settings.language.system" = "System";
+"settings.language.english" = "English";
+"settings.language.simplified_chinese" = "Simplified Chinese";
+"settings.launch_at_login" = "Launch at login";
+"settings.sample_interval_sec" = "Sample interval (seconds)";
+"settings.cooldown_sec" = "Release cooldown (seconds)";
+"settings.cpu_threshold" = "CPU (any core ≥)";
+"settings.network_threshold" = "Network rate ≥";
+"settings.disk_threshold" = "Disk rate ≥";
+"settings.threshold_footnote" = "Thresholds use a 60s P75 window and are per-core normalized, so a single saturated core is not diluted by the machine-wide average.";
+
+// Rules
+"settings.rules.task_processes.title" = "Task processes (matching names count as a running task)";
+"settings.rules.task_processes.placeholder" = "e.g. ffmpeg";
+"settings.rules.work_apps.title" = "Work-app allowlist (foreground counts as working)";
+"settings.rules.work_apps.placeholder" = "bundle id, e.g. com.apple.dt.Xcode";
+"settings.rules.blacklist.title" = "Blocklist (ignore foreground-work and matching fullscreen signals)";
+"settings.rules.blacklist.placeholder" = "bundle id";
+"settings.rules.count_format" = "%d items";
+
+"settings.add" = "Add";
+"settings.empty" = "(none)";
+"settings.remove_format" = "Remove %@";
+
+// Logs
+"logs.title" = "Recent events";
+"logs.subtitle" = "Shows discrete keep, release, and recheck points from this session.";
+"logs.refresh" = "Refresh";
+"logs.recent_count_format" = "%d recent";
+"logs.empty" = "No events";
+"logs.empty_detail" = "This view shows discrete control actions, not continuous background sampling.";
+"logs.detail.placeholder" = "Select a log entry to view details.";
+"logs.detail.note" = "Detail";
+"logs.detail.none" = "None";
+"logs.column.time" = "Time";
+"logs.column.action" = "Action";
+"logs.column.reason" = "Reason";
+"logs.column.duration" = "Keeps awake";
+"logs.action.start" = "Start";
+"logs.action.stop" = "Stop";
+"logs.action.manual" = "Manual";
+"logs.action.auto" = "Auto";
+"logs.action.keep_awake" = "Keep Awake";
+"logs.action.allow_sleep_released" = "Release Assertion";
+"logs.action.allow_sleep_system" = "System Sleep Control";
+"logs.action.error" = "Error";

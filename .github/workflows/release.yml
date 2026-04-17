@@ -59,7 +59,7 @@ jobs:
           set -euo pipefail
           APP_VERSION="${{ steps.version.outputs.app_version }}"
           SCRIPT_VERSION="$(awk '
-            /<key>CFBundleShortVersionString<\\/key>/ { getline; gsub(/.*<string>|<\\/string>.*/, ""); print; exit }
+            /<key>CFBundleShortVersionString<\/key>/ { getline; gsub(/.*<string>|<\/string>.*/, ""); print; exit }
           ' build-app.sh)"
 
           if [ "$SCRIPT_VERSION" != "$APP_VERSION" ]; then

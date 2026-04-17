@@ -20,7 +20,8 @@ cp "$BIN_SRC" "$APP_BUNDLE/Contents/MacOS/${APP_NAME}"
 chmod +x "$APP_BUNDLE/Contents/MacOS/${APP_NAME}"
 
 for b in "$HERE"/.build/release/*.bundle; do
-    [ -e "$b" ] && cp -R "$b" "$APP_BUNDLE/Contents/Resources/"
+    [ -e "$b" ] || continue
+    cp -R "$b" "$APP_BUNDLE/Contents/Resources/"
 done
 
 if [ -f "$HERE/Sources/stayawake/Resources/stayawake.icns" ]; then
@@ -64,6 +65,9 @@ cat > "$APP_BUNDLE/Contents/Info.plist" <<'PLIST'
 </dict>
 </plist>
 PLIST
+
+echo "==> ad-hoc signing ${APP_BUNDLE}"
+codesign --force --deep --sign - "$APP_BUNDLE"
 
 echo "==> done: ${APP_BUNDLE}"
 echo "    run: open \"${APP_BUNDLE}\""

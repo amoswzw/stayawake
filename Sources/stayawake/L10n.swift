@@ -33,10 +33,10 @@ enum L10n {
 
     private static func activeBundle(language: AppLanguage) -> Bundle {
         guard let lproj = language.lprojName,
-              let path = Bundle.module.path(forResource: lproj, ofType: "lproj"),
+              let path = AppResources.bundle.path(forResource: lproj, ofType: "lproj"),
               let bundle = Bundle(path: path)
         else {
-            return .module
+            return AppResources.bundle
         }
         return bundle
     }

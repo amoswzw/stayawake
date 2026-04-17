@@ -8,6 +8,8 @@ stayawake is a lightweight macOS menu-bar utility that automatically decides whe
 
 It is designed for long-running work: builds, downloads, renders, scripts, audio playback, fullscreen activity, and focused work apps. When there is no useful activity, it lets macOS sleep normally.
 
+Project page: https://amoswzw.github.io/stayawake/
+
 ## Preview
 
 The app uses a small character icon in the menu bar. The sleeping character means sleep is allowed; the energized character means stayawake is actively keeping the Mac awake.

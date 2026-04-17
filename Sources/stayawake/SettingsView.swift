@@ -85,7 +85,7 @@ struct SettingsView: View {
 
     private func statusTemplateImage(named name: String) -> NSImage? {
         guard
-            let url = Bundle.module.url(forResource: name, withExtension: "png"),
+            let url = AppResources.bundle.url(forResource: name, withExtension: "png"),
             let image = NSImage(contentsOf: url)
         else {
             return nil

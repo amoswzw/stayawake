@@ -5,6 +5,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "$HERE"
 
 APP_NAME="stayawake"
+APP_VERSION="${APP_VERSION:-0.1.0}"
 APP_BUNDLE="$HERE/build/${APP_NAME}.app"
 BIN_SRC="$HERE/.build/release/${APP_NAME}"
 
@@ -28,7 +29,7 @@ if [ -f "$HERE/Sources/stayawake/Resources/stayawake.icns" ]; then
     cp "$HERE/Sources/stayawake/Resources/stayawake.icns" "$APP_BUNDLE/Contents/Resources/stayawake.icns"
 fi
 
-cat > "$APP_BUNDLE/Contents/Info.plist" <<'PLIST'
+cat > "$APP_BUNDLE/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -40,9 +41,9 @@ cat > "$APP_BUNDLE/Contents/Info.plist" <<'PLIST'
     <key>CFBundleIdentifier</key>
     <string>dev.stayawake.app</string>
     <key>CFBundleVersion</key>
-    <string>1</string>
+    <string>${APP_VERSION}</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.0</string>
+    <string>${APP_VERSION}</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleExecutable</key>

@@ -23,6 +23,7 @@ jobs:
       APPLE_ID: ${{ secrets.APPLE_ID }}
       APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
 
     steps:
       - name: Check out repository
@@ -236,3 +237,39 @@ jobs:
               --title "$VERSION_TAG" \
               --notes-file "$RELEASE_NOTES"
           fi
+
+      - name: Update Homebrew tap
+        if: ${{ env.IS_NOTARIZED == 'true' && env.HOMEBREW_TAP_TOKEN != '' }}
+        env:
+          GH_TOKEN: ${{ env.HOMEBREW_TAP_TOKEN }}
+          APP_VERSION: ${{ steps.version.outputs.app_version }}
+          SHA256_PATH: ${{ steps.checksum.outputs.sha256_path }}
+          TAP_REPO: amoswzw/homebrew-tap
+          CASK_PATH: Casks/stayawake.rb
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SHA256="$(awk '{print $1}' "$SHA256_PATH")"
+
+          WORK_DIR="$(mktemp -d)"
+          gh api "repos/${TAP_REPO}/contents/${CASK_PATH}" > "$WORK_DIR/meta.json"
+          BLOB_SHA="$(jq -r '.sha' "$WORK_DIR/meta.json")"
+          jq -r '.content' "$WORK_DIR/meta.json" | base64 -d > "$WORK_DIR/current.rb"
+
+          sed -E \
+            -e "s/^(  version )\"[^\"]+\"/\1\"${APP_VERSION}\"/" \
+            -e "s/^(  sha256 )\"[^\"]+\"/\1\"${SHA256}\"/" \
+            "$WORK_DIR/current.rb" > "$WORK_DIR/new.rb"
+
+          if cmp -s "$WORK_DIR/current.rb" "$WORK_DIR/new.rb"; then
+            echo "Cask already at ${APP_VERSION} with matching sha256; nothing to update."
+            exit 0
+          fi
+
+          NEW_B64="$(base64 < "$WORK_DIR/new.rb" | tr -d '\n')"
+
+          gh api --method PUT "repos/${TAP_REPO}/contents/${CASK_PATH}" \
+            -f message="stayawake ${APP_VERSION}" \
+            -f content="$NEW_B64" \
+            -f sha="$BLOB_SHA"

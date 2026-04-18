@@ -1,10 +1,12 @@
-import Foundation
+import AppKit
 import Combine
+import Foundation
 
 @MainActor
 final class AppCoordinator: ObservableObject {
     static let shared = AppCoordinator()
     private static let manualUntilOffCheckInterval: TimeInterval = 300
+    private static let systemEventRefreshDelay: TimeInterval = 3
 
     @Published private(set) var lastContext: Context = .empty
     @Published private(set) var lastSignal: TaskSignal = TaskSignal(
@@ -30,6 +32,8 @@ final class AppCoordinator: ObservableObject {
 
     private var timer: Timer?
     private var configObserver: NSObjectProtocol?
+    private var systemEventObservers: [(NotificationCenter, NSObjectProtocol)] = []
+    private var pendingSystemEventTimer: Timer?
     private var currentSampleInterval: TimeInterval?
     private var lastAssertionFailureReason: String?
     private var nextAutomaticCheckAt: Date?
@@ -44,6 +48,7 @@ final class AppCoordinator: ObservableObject {
         log.resetDecisionTracking()
         EventLog.shared.record(action: "START", reason: L10n.s("event.app_started"))
         observeConfigChanges()
+        observeSystemEvents()
         tick()
         scheduleTimer()
     }
@@ -51,10 +56,16 @@ final class AppCoordinator: ObservableObject {
     func stop() {
         timer?.invalidate()
         timer = nil
+        pendingSystemEventTimer?.invalidate()
+        pendingSystemEventTimer = nil
         if let configObserver {
             NotificationCenter.default.removeObserver(configObserver)
             self.configObserver = nil
         }
+        for (center, token) in systemEventObservers {
+            center.removeObserver(token)
+        }
+        systemEventObservers.removeAll()
         power.release()
         EventLog.shared.record(action: "STOP", reason: L10n.s("event.app_stopping"))
     }
@@ -106,6 +117,67 @@ final class AppCoordinator: ObservableObject {
         ) { [weak self] _ in
             Task { @MainActor [weak self] in self?.configDidChange() }
         }
+    }
+
+    private func observeSystemEvents() {
+        guard systemEventObservers.isEmpty else { return }
+        let workspaceCenter = NSWorkspace.shared.notificationCenter
+        let distributedCenter = DistributedNotificationCenter.default()
+        let delayedHandler: @Sendable (Notification) -> Void = { [weak self] _ in
+            Task { @MainActor [weak self] in self?.scheduleSystemEventRefresh() }
+        }
+        let immediateHandler: @Sendable (Notification) -> Void = { [weak self] _ in
+            Task { @MainActor [weak self] in self?.refreshSystemEventNow() }
+        }
+        systemEventObservers.append((
+            workspaceCenter,
+            workspaceCenter.addObserver(
+                forName: NSWorkspace.didWakeNotification,
+                object: nil,
+                queue: .main,
+                using: delayedHandler
+            )
+        ))
+        systemEventObservers.append((
+            distributedCenter,
+            distributedCenter.addObserver(
+                forName: Notification.Name("com.apple.screenIsUnlocked"),
+                object: nil,
+                queue: .main,
+                using: delayedHandler
+            )
+        ))
+        systemEventObservers.append((
+            distributedCenter,
+            distributedCenter.addObserver(
+                forName: Notification.Name("com.apple.screenIsLocked"),
+                object: nil,
+                queue: .main,
+                using: immediateHandler
+            )
+        ))
+    }
+
+    private func scheduleSystemEventRefresh() {
+        pendingSystemEventTimer?.invalidate()
+        let t = Timer(timeInterval: Self.systemEventRefreshDelay, repeats: false) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                self.pendingSystemEventTimer = nil
+                self.nextAutomaticCheckAt = nil
+                self.tick()
+            }
+        }
+        t.tolerance = 0.5
+        RunLoop.main.add(t, forMode: .common)
+        pendingSystemEventTimer = t
+    }
+
+    private func refreshSystemEventNow() {
+        pendingSystemEventTimer?.invalidate()
+        pendingSystemEventTimer = nil
+        nextAutomaticCheckAt = nil
+        tick()
     }
 
     private func configDidChange() {

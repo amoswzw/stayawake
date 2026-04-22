@@ -181,6 +181,17 @@ final class AppCoordinator: ObservableObject {
     }
 
     private func configDidChange() {
+        let cfg = config.config
+        if power.isAwake, power.preventsDisplaySleep != cfg.keepDisplayAwake {
+            let reason = power.reason ?? L10n.s("reason.no_keep_evidence")
+            if !power.ensureAwake(reason: reason, preventDisplaySleep: cfg.keepDisplayAwake),
+               lastAssertionFailureReason != reason {
+                lastAssertionFailureReason = reason
+                log.record(action: "ERROR", reason: L10n.fmt("event.assertion_failed_format", reason))
+            }
+            isAwake = power.isAwake
+            assertionReason = power.reason
+        }
         let interval = nextTimerInterval()
         if currentSampleInterval != interval {
             scheduleTimer()
@@ -271,8 +282,12 @@ final class AppCoordinator: ObservableObject {
                 cfg: cfg,
                 override: override
             )
-            if !power.isAwake || power.reason != reason {
-                if power.ensureAwake(reason: reason) {
+            let preventDisplay = cfg.keepDisplayAwake
+            if !power.isAwake
+                || power.reason != reason
+                || power.preventsDisplaySleep != preventDisplay
+            {
+                if power.ensureAwake(reason: reason, preventDisplaySleep: preventDisplay) {
                     lastAssertionFailureReason = nil
                 } else if lastAssertionFailureReason != reason {
                     lastAssertionFailureReason = reason

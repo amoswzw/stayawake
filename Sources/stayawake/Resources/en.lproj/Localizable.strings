@@ -88,6 +88,7 @@
 "settings.tab.advanced" = "Advanced";
 
 // Settings sections
+"settings.section.display" = "Display";
 "settings.section.idle" = "Idle detection";
 "settings.section.language" = "Language";
 "settings.section.launch" = "Launch";
@@ -107,6 +108,8 @@
 "settings.language.german" = "German";
 "settings.language.spanish" = "Spanish";
 "settings.launch_at_login" = "Launch at login";
+"settings.keep_display_awake" = "Keep the display on while awake";
+"settings.keep_display_awake.footnote" = "Also prevents the display from turning off. Uses more energy.";
 "settings.sample_interval_sec" = "Sample interval (seconds)";
 "settings.cooldown_sec" = "Release cooldown (seconds)";
 "settings.cpu_threshold" = "CPU (any core ≥)";

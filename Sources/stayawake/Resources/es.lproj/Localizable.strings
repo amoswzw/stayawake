@@ -88,6 +88,7 @@
 "settings.tab.advanced" = "Avanzado";
 
 // Settings sections
+"settings.section.display" = "Pantalla";
 "settings.section.idle" = "Detección de inactividad";
 "settings.section.language" = "Idioma";
 "settings.section.launch" = "Inicio";
@@ -107,6 +108,8 @@
 "settings.language.german" = "Alemán";
 "settings.language.spanish" = "Español";
 "settings.launch_at_login" = "Iniciar al iniciar sesión";
+"settings.keep_display_awake" = "Mantener la pantalla encendida al estar despierto";
+"settings.keep_display_awake.footnote" = "También impide que la pantalla se apague. Consume más energía.";
 "settings.sample_interval_sec" = "Intervalo de muestreo (segundos)";
 "settings.cooldown_sec" = "Enfriamiento de liberación (segundos)";
 "settings.cpu_threshold" = "CPU (cualquier núcleo ≥)";

@@ -122,6 +122,17 @@ struct SettingsView: View {
                         .foregroundStyle(.red)
                 }
             }
+            Section(s("settings.section.display")) {
+                Toggle(isOn: Binding(
+                    get: { cfg.keepDisplayAwake },
+                    set: { cfg.keepDisplayAwake = $0 }
+                )) {
+                    text("settings.keep_display_awake")
+                }
+                text("settings.keep_display_awake.footnote")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
             Section(s("settings.section.language")) {
                 Picker(selection: Binding(
                     get: { cfg.language },

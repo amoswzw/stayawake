@@ -88,6 +88,7 @@
 "settings.tab.advanced" = "詳細";
 
 // Settings sections
+"settings.section.display" = "ディスプレイ";
 "settings.section.idle" = "アイドル判定";
 "settings.section.language" = "言語";
 "settings.section.launch" = "起動";
@@ -107,6 +108,8 @@
 "settings.language.german" = "ドイツ語";
 "settings.language.spanish" = "スペイン語";
 "settings.launch_at_login" = "ログイン時に起動";
+"settings.keep_display_awake" = "スリープ防止中はディスプレイも点灯したままにする";
+"settings.keep_display_awake.footnote" = "ディスプレイのスリープも防ぎます。消費電力が増えます。";
 "settings.sample_interval_sec" = "サンプリング間隔（秒）";
 "settings.cooldown_sec" = "解放クールダウン（秒）";
 "settings.cpu_threshold" = "CPU（任意のコア ≥）";

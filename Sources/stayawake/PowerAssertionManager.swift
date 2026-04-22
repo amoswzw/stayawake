@@ -5,19 +5,30 @@ import IOKit.pwr_mgt
 final class PowerAssertionManager {
     private var assertionID: IOPMAssertionID = IOPMAssertionID(0)
     private var currentReason: String?
+    private var currentPreventsDisplaySleep: Bool = false
 
     var isAwake: Bool { assertionID != 0 }
     var reason: String? { currentReason }
+    var preventsDisplaySleep: Bool { currentPreventsDisplaySleep }
 
     @discardableResult
-    func ensureAwake(reason: String) -> Bool {
+    func ensureAwake(reason: String, preventDisplaySleep: Bool) -> Bool {
         if isAwake {
-            currentReason = reason
-            return true
+            if currentPreventsDisplaySleep == preventDisplaySleep {
+                currentReason = reason
+                return true
+            }
+            IOPMAssertionRelease(assertionID)
+            assertionID = IOPMAssertionID(0)
+            currentReason = nil
+            currentPreventsDisplaySleep = false
         }
+        let type: CFString = preventDisplaySleep
+            ? kIOPMAssertionTypePreventUserIdleDisplaySleep as CFString
+            : kIOPMAssertionTypePreventUserIdleSystemSleep as CFString
         var id: IOPMAssertionID = IOPMAssertionID(0)
         let rc = IOPMAssertionCreateWithName(
-            kIOPMAssertionTypePreventUserIdleSystemSleep as CFString,
+            type,
             IOPMAssertionLevel(kIOPMAssertionLevelOn),
             reason as CFString,
             &id
@@ -25,6 +36,7 @@ final class PowerAssertionManager {
         if rc == kIOReturnSuccess {
             assertionID = id
             currentReason = reason
+            currentPreventsDisplaySleep = preventDisplaySleep
             return true
         }
         return false
@@ -35,6 +47,7 @@ final class PowerAssertionManager {
         IOPMAssertionRelease(assertionID)
         assertionID = IOPMAssertionID(0)
         currentReason = nil
+        currentPreventsDisplaySleep = false
     }
 
     deinit { release() }

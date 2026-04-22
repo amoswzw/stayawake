@@ -88,6 +88,7 @@
 "settings.tab.advanced" = "進階";
 
 // Settings sections
+"settings.section.display" = "顯示器";
 "settings.section.idle" = "閒置判定";
 "settings.section.language" = "語言";
 "settings.section.launch" = "啟動";
@@ -107,6 +108,8 @@
 "settings.language.german" = "德語";
 "settings.language.spanish" = "西班牙語";
 "settings.launch_at_login" = "登入時啟動";
+"settings.keep_display_awake" = "保持喚醒時螢幕常亮";
+"settings.keep_display_awake.footnote" = "同時阻止顯示器自動關閉。會增加能耗。";
 "settings.sample_interval_sec" = "取樣間隔（秒）";
 "settings.cooldown_sec" = "釋放冷卻（秒）";
 "settings.cpu_threshold" = "CPU（任一核心 ≥）";

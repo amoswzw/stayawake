@@ -88,6 +88,7 @@
 "settings.tab.advanced" = "고급";
 
 // Settings sections
+"settings.section.display" = "디스플레이";
 "settings.section.idle" = "유휴 감지";
 "settings.section.language" = "언어";
 "settings.section.launch" = "시작";
@@ -107,6 +108,8 @@
 "settings.language.german" = "독일어";
 "settings.language.spanish" = "스페인어";
 "settings.launch_at_login" = "로그인 시 실행";
+"settings.keep_display_awake" = "깨어 있는 동안 디스플레이도 켜둠";
+"settings.keep_display_awake.footnote" = "디스플레이도 꺼지지 않게 합니다. 전력 소모가 늘어납니다.";
 "settings.sample_interval_sec" = "샘플링 간격 (초)";
 "settings.cooldown_sec" = "해제 쿨다운 (초)";
 "settings.cpu_threshold" = "CPU (코어 중 하나 ≥)";

@@ -50,6 +50,7 @@ struct Config: Codable, Equatable {
     var diskThresholdBytesPerSec: Double = 1 * 1024 * 1024
     var cooldownSeconds: TimeInterval = 120
     var launchAtLogin: Bool = false
+    var keepDisplayAwake: Bool = false
     var language: AppLanguage = .system
     var taskProcessNames: Set<String> = [
         "xcodebuild", "clang", "swift", "swift-frontend",
@@ -103,6 +104,7 @@ struct Config: Codable, Equatable {
         diskThresholdBytesPerSec = try c.decodeIfPresent(Double.self, forKey: .diskThresholdBytesPerSec) ?? base.diskThresholdBytesPerSec
         cooldownSeconds = try c.decodeIfPresent(TimeInterval.self, forKey: .cooldownSeconds) ?? base.cooldownSeconds
         launchAtLogin = try c.decodeIfPresent(Bool.self, forKey: .launchAtLogin) ?? base.launchAtLogin
+        keepDisplayAwake = try c.decodeIfPresent(Bool.self, forKey: .keepDisplayAwake) ?? base.keepDisplayAwake
         language = try c.decodeIfPresent(AppLanguage.self, forKey: .language) ?? base.language
         taskProcessNames = try c.decodeIfPresent(Set<String>.self, forKey: .taskProcessNames) ?? base.taskProcessNames
         workBundleIDs = try c.decodeIfPresent(Set<String>.self, forKey: .workBundleIDs) ?? base.workBundleIDs

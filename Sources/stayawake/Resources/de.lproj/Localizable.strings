@@ -88,6 +88,7 @@
 "settings.tab.advanced" = "Erweitert";
 
 // Settings sections
+"settings.section.display" = "Bildschirm";
 "settings.section.idle" = "Inaktivitätserkennung";
 "settings.section.language" = "Sprache";
 "settings.section.launch" = "Start";
@@ -107,6 +108,8 @@
 "settings.language.german" = "Deutsch";
 "settings.language.spanish" = "Spanisch";
 "settings.launch_at_login" = "Beim Anmelden starten";
+"settings.keep_display_awake" = "Bildschirm eingeschaltet lassen";
+"settings.keep_display_awake.footnote" = "Verhindert außerdem, dass sich der Bildschirm ausschaltet. Höherer Energieverbrauch.";
 "settings.sample_interval_sec" = "Abtastintervall (Sekunden)";
 "settings.cooldown_sec" = "Freigabe-Cooldown (Sekunden)";
 "settings.cpu_threshold" = "CPU (mindestens ein Kern ≥)";

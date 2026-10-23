@@ -68,6 +68,46 @@ final class PolicyTests: XCTestCase {
         guard case .allowSleep = action else { XCTFail(); return }
     }
 
+    func testActiveProcessWithLightActivityKeepsAwakeWhileIdle() {
+        var s = baseSignal()
+        s.hasActiveProcess = true
+        s.hasLightActivity = true
+        s.isUserIdle = true
+        let action = Policy.decide(PolicyInput(
+            context: baseCtx(), signal: s, manualOverride: nil, now: now
+        ))
+        guard case .keepAwake = action else { XCTFail(); return }
+    }
+
+    func testLightActivityWithoutProcessAllowsSleep() {
+        var s = baseSignal()
+        s.hasLightActivity = true
+        s.isUserIdle = true
+        let action = Policy.decide(PolicyInput(
+            context: baseCtx(), signal: s, manualOverride: nil, now: now
+        ))
+        guard case .allowSleep = action else { XCTFail(); return }
+    }
+
+    func testSignalDeriverLightActivity() {
+        var ctx = baseCtx()
+        let deriver = SignalDeriver(
+            cpuThreshold: 0.3,
+            networkThresholdBytesPerSec: 50_000,
+            diskThresholdBytesPerSec: 1_000_000,
+            idleThresholdSeconds: 600,
+            taskProcessNames: [],
+            workBundleIDs: [],
+            blacklistBundleIDs: []
+        )
+        ctx.maxCoreCPU = 0.5
+        ctx.taskProcessCPU = 0.01
+        XCTAssertFalse(deriver.derive(from: ctx).hasLightActivity)
+
+        ctx.taskProcessCPU = 0.03
+        XCTAssertTrue(deriver.derive(from: ctx).hasLightActivity)
+    }
+
     func testActiveProcessWithRecentInputKeepsAwake() {
         var s = baseSignal()
         s.hasActiveProcess = true

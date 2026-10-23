@@ -4,6 +4,7 @@ final class SignalCollector {
     private let cpu = CPUProbe()
     private let net = NetworkProbe()
     private let disk = DiskProbe()
+    private let taskCPUProbe = TaskCPUProbe()
 
     private var cpuWindow = SlidingWindow(duration: 60)
     private var netWindow = SlidingWindow(duration: 60)
@@ -35,7 +36,9 @@ final class SignalCollector {
         let diskP75 = diskWindow.percentile(0.75)
 
         let front = FrontmostAppProbe.current()
-        let procs = ProcessProbe.runningNames(matching: taskProcessNames)
+        let matched = ProcessProbe.running(matching: taskProcessNames)
+        let procs = Set(matched.values)
+        let taskCPU = taskCPUProbe.sampleUsage(pids: matched.keys)
         let audio = AudioProbe.isAnyOutputRunning() ?? {
             failures.insert(.audio)
             return false
@@ -58,6 +61,7 @@ final class SignalCollector {
             frontmostBundleID: front.bundleID,
             frontmostName: front.name,
             runningProcessNames: procs,
+            taskProcessCPU: taskCPU,
             maxCoreCPU: cpuP75,
             networkRateBytesPerSec: netP75,
             diskRateBytesPerSec: diskP75,

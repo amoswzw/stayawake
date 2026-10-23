@@ -107,7 +107,7 @@ stayawake 与 macOS 自带功能有部分重叠，但不直接冲突。
 | --- | --- |
 | idle 秒数 | `CGEventSource.secondsSinceLastEventType` |
 | 前台 app | `NSWorkspace.shared.frontmostApplication` |
-| 进程名匹配 | `sysctl(KERN_PROC_ALL)` |
+| 进程名匹配 | `sysctl(KERN_PROC_ALL)` 的 `p_comm`；未命中时对当前用户进程用 `KERN_PROCARGS2` 只取 argv[0] 的文件名（`p_comm` 截断 16 字符，且 Claude Code 原生安装的可执行文件名是版本号） |
 | CPU | `host_processor_info`，每核最大使用率 |
 | 网络速率 | `getifaddrs` / `if_data` |
 | 磁盘速率 | `IOBlockStorageDriver` statistics |
@@ -116,7 +116,7 @@ stayawake 与 macOS 自带功能有部分重叠，但不直接冲突。
 | 电池/AC | `IOPSGetProvidingPowerSourceType` |
 | 热状态 | `ProcessInfo.processInfo.thermalState` |
 
-资源类信号 CPU/网络/磁盘使用 60 秒滑动窗口，取 P75。
+资源类信号 CPU/网络/磁盘使用 60 秒滑动窗口，取 P75。注意：自动模式约 120 秒才采样一次，窗口内通常只有一个样本，实际效果是“距上次采样期间的平均值”。
 
 AudioProbe 已缓存设备列表：
 
@@ -138,8 +138,9 @@ AudioProbe 已缓存设备列表：
 6. 最近输入 + 任务进程 → keep awake
 7. 最近输入 + 前台工作 app → keep awake
 8. 最近输入 + 全屏 → keep awake
-9. 用户 idle → allow sleep
-10. 默认 → allow sleep
+9. 任务进程 + 轻度活动（匹配到的任务进程自身 CPU 合计 ≥ 单核 2%，`proc_pid_rusage`）→ keep awake（无需最近输入，覆盖用户离开后的长任务；不用系统级 CPU，因为空闲 Mac 的系统级最大核占用也常超过 5%）
+10. 用户 idle → allow sleep
+11. 默认 → allow sleep
 
 `SignalDeriver` 负责把 `Context` 转为 `TaskSignal`，包括 blocklist 过滤。
 

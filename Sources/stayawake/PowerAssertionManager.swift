@@ -15,6 +15,9 @@ final class PowerAssertionManager {
     func ensureAwake(reason: String, preventDisplaySleep: Bool) -> Bool {
         if isAwake {
             if currentPreventsDisplaySleep == preventDisplaySleep {
+                if currentReason != reason {
+                    IOPMAssertionSetProperty(assertionID, kIOPMAssertionNameKey as CFString, reason as CFString)
+                }
                 currentReason = reason
                 return true
             }

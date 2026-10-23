@@ -390,7 +390,7 @@ final class AppCoordinator: ObservableObject {
         } else if signal.hasActiveProcess {
             let names = context.runningProcessNames.sorted().prefix(6).joined(separator: ", ")
             let detail = names.isEmpty ? L10n.s("log.detail.active_process_unknown") : L10n.fmt("log.detail.active_process_format", names)
-            note = detailWithRecentInput(detail, context: context)
+            note = signal.hasRecentUserInput ? detailWithRecentInput(detail, context: context) : detail
         } else if signal.hasForegroundWork {
             note = detailWithRecentInput(foregroundDetail(context), context: context)
         } else if signal.fullscreenActive {

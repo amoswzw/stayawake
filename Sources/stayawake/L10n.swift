@@ -35,7 +35,7 @@ enum L10n {
         guard let lproj = language.lprojName else {
             return AppResources.bundle
         }
-        let root = AppResources.bundle.bundleURL
+        let root = AppResources.bundle.resourceURL ?? AppResources.bundle.bundleURL
         // SwiftPM's resource processor lowercases `.lproj` directory names, but a
         // hand-copied bundle may keep the original case. Try both so lookups work
         // in either layout.

@@ -48,6 +48,10 @@ enum Policy {
             }
         }
 
+        if input.signal.hasActiveProcess && input.signal.hasLightActivity {
+            return .keepAwake(reason: L10n.s("reason.active_process"))
+        }
+
         if input.signal.isUserIdle {
             return .allowSleep(reason: L10n.s("reason.user_idle"))
         }
@@ -87,9 +91,13 @@ struct SignalDeriver {
             audioActive: ctx.audioActive,
             isUserIdle: ctx.idleSeconds >= idleThresholdSeconds,
             hasRecentUserInput: ctx.idleSeconds < recentInputThresholdSeconds,
-            hasUncertainSignals: !ctx.probeFailures.isEmpty
+            hasUncertainSignals: !ctx.probeFailures.isEmpty,
+            hasLightActivity: ctx.taskProcessCPU >= Self.taskProcessActiveCPU
         )
     }
+
+    // Measured on the matched task processes only; system-wide CPU on an idle Mac already exceeds this.
+    private static let taskProcessActiveCPU: Double = 0.02
 
     private var recentInputThresholdSeconds: TimeInterval {
         min(120, max(30, idleThresholdSeconds / 5))

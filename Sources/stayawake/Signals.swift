@@ -14,6 +14,7 @@ struct Context: Equatable, Sendable {
     var frontmostBundleID: String?
     var frontmostName: String?
     var runningProcessNames: Set<String>
+    var taskProcessCPU: Double
     var maxCoreCPU: Double
     var networkRateBytesPerSec: Double
     var diskRateBytesPerSec: Double
@@ -29,6 +30,7 @@ struct Context: Equatable, Sendable {
         frontmostBundleID: nil,
         frontmostName: nil,
         runningProcessNames: [],
+        taskProcessCPU: 0,
         maxCoreCPU: 0,
         networkRateBytesPerSec: 0,
         diskRateBytesPerSec: 0,
@@ -51,6 +53,7 @@ struct TaskSignal: Equatable, Sendable {
     var isUserIdle: Bool
     var hasRecentUserInput: Bool
     var hasUncertainSignals: Bool
+    var hasLightActivity: Bool = false
 }
 
 enum Action: Equatable, Sendable {
